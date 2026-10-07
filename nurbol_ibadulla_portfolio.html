@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurbol Ibadulla | PhD Researcher in Chemistry & Materials Chemist</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0b0f19',
+                        cardbg: '#111827',
+                        cardborder: '#1f293d',
+                        neon: {
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            blue: '#3b82f6',
+                            accent: '#34d399'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    },
+                    boxShadow: {
+                        'neon-glow': '0 0 25px -5px rgba(16, 185, 129, 0.3)',
+                        'cyan-glow': '0 0 25px -5px rgba(6, 182, 212, 0.3)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+
+        /* Glassmorphism gradient border */
+        .glass-card {
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.15);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #f8fafc 0%, #34d399 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #38bdf8 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glowing Monogram Ring */
+        .ring-glow {
+            position: relative;
+        }
+        .ring-glow::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 9999px;
+            background: linear-gradient(45deg, #10b981, #06b6d4, #3b82f6);
+            z-index: -1;
+            filter: blur(6px);
+            opacity: 0.7;
+            animation: pulseGlow 3s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.5; filter: blur(4px); }
+            100% { opacity: 0.9; filter: blur(8px); }
+        }
+
+        /* Active Nav tab styling */
+        .nav-link.active {
+            color: #10b981;
+            border-bottom: 2px solid #10b981;
+        }
+
+        /* Pulsing Dot */
+        .status-dot {
+            box-shadow: 0 0 10px #10b981;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-900 min-h-screen relative overflow-x-hidden">
+
+    <canvas id="latticeCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
+
+    <header class="fixed top-0 left-0 w-full z-50 glass-card bg-slate-950/80 border-b border-slate-800/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo / Monogram -->
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="ring-glow w-11 h-11 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-emerald-400 font-heading font-extrabold text-xl tracking-wider group-hover:scale-105 transition-transform">
+                    NI
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-heading font-bold text-lg text-slate-100 tracking-tight leading-none group-hover:text-emerald-400 transition-colors">Nurbol Ibadulla</span>
+                    <span class="text-xs font-mono text-emerald-400/90 tracking-widest uppercase">PhD Researcher @ NYU</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-emerald-400 transition-colors py-1">About</a>
+                <a href="#skills" class="hover:text-emerald-400 transition-colors py-1">Skills & Arsenal</a>
+                <a href="#experience" class="hover:text-emerald-400 transition-colors py-1">Experience</a>
+                <a href="#publications" class="hover:text-emerald-400 transition-colors py-1">Publications</a>
+                <a href="#education" class="hover:text-emerald-400 transition-colors py-1">Education</a>
+                <a href="#awards" class="hover:text-emerald-400 transition-colors py-1">Awards & Network</a>
+            </nav>
+
+            <!-- CTA & Actions -->
+            <div class="hidden lg:flex items-center space-x-3">
+                <button onclick="openResumeModal()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-file-pdf text-emerald-400">active CV</i>
+                </button>
+                <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-heading font-bold text-xs uppercase tracking-wider shadow-neon-glow transition-all hover:scale-105">
+                    Contact Me
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-emerald-400 text-2xl focus:outline-none p-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-6 py-4 space-y-3 font-medium text-slate-300">
+            <a href="#about" class="block hover:text-emerald-400 transition-colors">About</a>
+            <a href="#skills" class="block hover:text-emerald-400 transition-colors">Skills & Arsenal</a>
+            <a href="#experience" class="block hover:text-emerald-400 transition-colors">Experience</a>
+            <a href="#publications" class="block hover:text-emerald-400 transition-colors">Publications</a>
+            <a href="#education" class="block hover:text-emerald-400 transition-colors">Education</a>
+            <a href="#awards" class="block hover:text-emerald-400 transition-colors">Awards & Network</a>
+            <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
+                <button onclick="openResumeModal()" class="w-full text-center py-2 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 text-xs font-bold uppercase">
+                    View CV / Resume
+                </button>
+                <a href="#contact" class="w-full text-center py-2 rounded-lg bg-emerald-500 text-slate-950 font-bold text-xs uppercase">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-24">
+
+        <section id="hero" class="min-h-[90vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Main Hero Info -->
+                <div class="lg:col-span-8 space-y-6">
+                    
+                    <!-- Availability Badge -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 text-xs font-mono">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 status-dot animate-ping"></span>
+                        <span>PhD Candidate @ NYU | Smart Materials Lab</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-heading font-extrabold text-slate-100 tracking-tight leading-tight">
+                        Hi, I'm <span class="text-gradient">Nurbol Ibadulla</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl font-heading font-medium text-emerald-400/90 leading-relaxed">
+                        PhD Researcher in Chemistry @ New York University &bull; Materials Chemist &bull; Battery R&D Specialist
+                    </p>
+
+                    <p class="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+                        Engineering next-generation electrochemical energy storage systems. 3.5+ years of international research and industry experience across the US, France, Belgium, UAE, and Kazakhstan. Specializing in organic crystal batteries, Li-ion / Na-ion / Mg-ion electrode formulation, electrospinning, and advanced physicochemical characterization.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="pt-4 flex flex-wrap gap-4 items-center">
+                        <a href="#experience" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-heading font-bold text-sm tracking-wide shadow-neon-glow transition-all hover:scale-105 flex items-center gap-2">
+                            <span>Explore R&D Journey</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+
+                        <a href="#publications" class="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-heading font-semibold text-sm tracking-wide transition-all hover:border-emerald-500/50 flex items-center gap-2">
+                            <i class="fa-solid fa-book-open text-emerald-400"></i>
+                            <span>View Publications</span>
+                        </a>
+
+                        <button onclick="copyEmail()" class="px-4 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 text-slate-300 border border-slate-800 text-xs font-mono transition-all flex items-center gap-2 group" title="Click to copy email">
+                            <i class="fa-regular fa-copy text-emerald-400 group-hover:scale-110 transition-transform"></i>
+                            <span id="emailText">ibadulla.nurbol@gmail.com</span>
+                        </button>
+                    </div>
+
+                    <!-- Location Badges -->
+                    <div class="pt-2 flex flex-wrap items-center gap-3 text-xs text-slate-400 font-mono">
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-emerald-400"></i> New York, NY, USA</span>
+                        <span class="text-slate-600">&bull;</span>
+                        <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-cyan-400"></i> Abu Dhabi, UAE</span>
+                        <span class="text-slate-600">&bull;</span>
+                        <span class="text-slate-400"><i class="fa-solid fa-globe text-emerald-400"></i> Educated in US, UK & France</span>
+                    </div>
+
+                </div>
+
+                <!-- KPI Quick Stats Card Grid -->
+                <div class="lg:col-span-4 grid grid-cols-2 gap-4">
+                    
+                    <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-emerald-500">
+                        <div class="text-emerald-400 text-2xl font-mono mb-2"><i class="fa-solid fa-vial-circle-check"></i></div>
+                        <div class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-100">3.5+</div>
+                        <div class="text-xs font-medium text-slate-400 mt-1 uppercase tracking-wider">Years Global R&D</div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-cyan-500">
+                        <div class="text-cyan-400 text-2xl font-mono mb-2"><i class="fa-solid fa-earth-americas"></i></div>
+                        <div class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-100">5</div>
+                        <div class="text-xs font-medium text-slate-400 mt-1 uppercase tracking-wider">Countries Worked/Studied</div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-teal-500">
+                        <div class="text-teal-400 text-2xl font-mono mb-2"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-100">6.1</div>
+                        <div class="text-xs font-medium text-slate-400 mt-1 uppercase tracking-wider">Top Publication IF</div>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl flex flex-col justify-between border-l-4 border-l-blue-500">
+                        <div class="text-blue-400 text-2xl font-mono mb-2"><i class="fa-solid fa-atom"></i></div>
+                        <div class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-100">20+</div>
+                        <div class="text-xs font-medium text-slate-400 mt-1 uppercase tracking-wider">Global Affiliations</div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Overview & Background</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Global R&D Footprint & Journey</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        From fundamental chemical synthesis to industrial-scale pouch cell fabrication, bridging materials science with sustainable energy solutions across continents.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Bio Narrative -->
+                    <div class="lg:col-span-6 glass-card p-6 sm:p-8 rounded-2xl space-y-6">
+                        <div class="flex items-center gap-3 pb-4 border-b border-slate-800">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold">
+                                <i class="fa-solid fa-microscope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-lg text-slate-100">PhD Researcher @ New York University</h4>
+                                <p class="text-xs text-emerald-400 font-mono">Smart Materials Lab (Prof. Panče Naumov)</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            I am a PhD Candidate in Chemistry at NYU with over 3.5 years of experience in materials chemistry, battery prototyping, and electrochemical characterization. My current doctoral research focuses on organic crystals for energy storage devices, unraveling structure-property relationships and molecular mechanisms to power future technologies.
+                        </p>
+
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            My international trajectory spans industry leader <strong>Saft (TotalEnergies)</strong> in France, battery startup <strong>AVESTA</strong> in Belgium, <strong>Novocycle Technologies</strong> & <strong>GreenMe</strong> in the UAE, <strong>TaiSan</strong> in the UK, as well as academic institutions like <strong>Nazarbayev University</strong>, <strong>University of Strasbourg</strong>, and <strong>Glasgow Caledonian University</strong>.
+                        </p>
+
+                        <!-- Languages Badge Grid -->
+                        <div class="pt-4 space-y-3">
+                            <h5 class="text-xs font-mono uppercase text-slate-400 tracking-wider">Linguistic Competencies</h5>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg bg-slate-900 border border-emerald-500/40 text-xs text-emerald-300 font-medium">English (Full Professional)</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-900 border border-emerald-500/40 text-xs text-emerald-300 font-medium">Russian (Full Professional)</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-900 border border-cyan-500/40 text-xs text-cyan-300 font-medium">Kazakh (Native)</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300">French (Intermediate)</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300">Turkish (Limited Working)</span>
+                                <span class="px-3 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-slate-300">Arabic (Elementary)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Global Journey Timeline / Hub Cards -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <h4 class="text-sm font-mono text-emerald-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-map-location-dot"></i> Key Geographic R&D Hubs
+                        </h4>
+
+                        <div class="space-y-3">
+                            
+                            <!-- Location Card 1 -->
+                            <div class="glass-card p-4 rounded-xl flex items-center justify-between hover:border-emerald-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-lg">
+                                        🇺🇸
+                                    </div>
+                                    <div>
+                                        <h5 class="font-heading font-bold text-slate-200 text-sm">United States (New York)</h5>
+                                        <p class="text-xs text-slate-400">NYU Dept. of Chemistry & Smart Materials Lab &bull; Brooklyn College</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded border border-emerald-800">PhD & R&D</span>
+                            </div>
+
+                            <!-- Location Card 2 -->
+                            <div class="glass-card p-4 rounded-xl flex items-center justify-between hover:border-cyan-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-bold text-lg">
+                                        🇦🇪
+                                    </div>
+                                    <div>
+                                        <h5 class="font-heading font-bold text-slate-200 text-sm">United Arab Emirates (Abu Dhabi / Dubai)</h5>
+                                        <p class="text-xs text-slate-400">NYUAD & GreenMe Honeywell Subcontractor & Novocycle</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-cyan-400 bg-cyan-950/80 px-2.5 py-1 rounded border border-cyan-800">Industry & Academic</span>
+                            </div>
+
+                            <!-- Location Card 3 -->
+                            <div class="glass-card p-4 rounded-xl flex items-center justify-between hover:border-emerald-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-lg">
+                                        🇫🇷
+                                    </div>
+                                    <div>
+                                        <h5 class="font-heading font-bold text-slate-200 text-sm">France (Strasbourg, Bordeaux, Pau)</h5>
+                                        <p class="text-xs text-slate-400">Saft (TotalEnergies), IPREM, MOPGA Scholar</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded border border-emerald-800">MSc & Battery R&D</span>
+                            </div>
+
+                            <!-- Location Card 4 -->
+                            <div class="glass-card p-4 rounded-xl flex items-center justify-between hover:border-teal-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 font-bold text-lg">
+                                        🇧🇪 🇬🇧
+                                    </div>
+                                    <div>
+                                        <h5 class="font-heading font-bold text-slate-200 text-sm">Belgium & United Kingdom</h5>
+                                        <p class="text-xs text-slate-400">AVESTA (Ninove), TaiSan (London), Glasgow Caledonian Univ</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-teal-400 bg-teal-950/80 px-2.5 py-1 rounded border border-teal-800">Cell Design & BSc</span>
+                            </div>
+
+                            <!-- Location Card 5 -->
+                            <div class="glass-card p-4 rounded-xl flex items-center justify-between hover:border-purple-500/50 transition-all">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold text-lg">
+                                        🇰🇿
+                                    </div>
+                                    <div>
+                                        <h5 class="font-heading font-bold text-slate-200 text-sm">Kazakhstan (Astana)</h5>
+                                        <p class="text-xs text-slate-400">National Laboratory Astana & Nazarbayev University</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-mono text-purple-400 bg-purple-950/80 px-2.5 py-1 rounded border border-purple-800">First-Author R&D</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+            <div class="max-w-7xl mx-auto space-y-10">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Expertise Matrix</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Technical Skills & Characterization Arsenal</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Comprehensive hands-on proficiency across electrochemical testing, physicochemical analysis, battery pilot manufacturing, and computational simulation.
+                    </p>
+                </div>
+
+                <!-- Skill Filters -->
+                <div class="flex flex-wrap items-center justify-center gap-2" id="skillFilterContainer">
+                    <button onclick="filterSkills('all')" class="skill-tab-btn active px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500 text-slate-950 transition-all">All Skills</button>
+                    <button onclick="filterSkills('electrochem')" class="skill-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Electrochemical & Electrical</button>
+                    <button onclick="filterSkills('characterization')" class="skill-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Physical/Chemical Analysis</button>
+                    <button onclick="filterSkills('manufacturing')" class="skill-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Battery Manufacturing</button>
+                    <button onclick="filterSkills('software')" class="skill-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Software & Simulation</button>
+                </div>
+
+                <!-- Skill Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="skillsGrid">
+                    
+                    <!-- Skill Card: Electrochemical -->
+                    <div class="skill-card glass-card p-6 rounded-2xl space-y-4" data-category="electrochem">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                                    <i class="fa-solid fa-car-battery text-lg"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-slate-100">Electrochemical Testing</h4>
+                            </div>
+                            <span class="text-xs font-mono text-emerald-400">Core R&D</span>
+                        </div>
+                        <p class="text-xs text-slate-400">Cyclic Voltammetry (CV), Galvanostatic CC/CC-CV Cycling, Electrochemical Impedance Spectroscopy (EIS), Transverse/Surface Resistance.</p>
+                        <div class="flex flex-wrap gap-1.5 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">BioLogic</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Arbin</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Gamry</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Autolab</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Neware</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card: XPS & Surface -->
+                    <div class="skill-card glass-card p-6 rounded-2xl space-y-4" data-category="characterization">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                                    <i class="fa-solid fa-wave-square text-lg"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-slate-100">XPS & Spectroscopy</h4>
+                            </div>
+                            <span class="text-xs font-mono text-cyan-400">Surface Analysis</span>
+                        </div>
+                        <p class="text-xs text-slate-400">X-ray Photoelectron Spectroscopy (XPS), Raman, FTIR, UV-Vis, Scanning Auger Nanoprobe, XRF, Post-mortem SEI analysis.</p>
+                        <div class="flex flex-wrap gap-1.5 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-cyan-300 text-xs border border-cyan-900/50">CasaXPS</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-cyan-300 text-xs border border-cyan-900/50">Avantage</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">FTIR</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Raman</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card: Microscopy & Structural -->
+                    <div class="skill-card glass-card p-6 rounded-2xl space-y-4" data-category="characterization">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400">
+                                    <i class="fa-solid fa-eye text-lg"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-slate-100">Microscopy & Diffraction</h4>
+                            </div>
+                            <span class="text-xs font-mono text-teal-400">Structural</span>
+                        </div>
+                        <p class="text-xs text-slate-400">SEM-EDS, TEM, AFM, STM, X-ray Powder Diffraction (XRD), Crystallography, Synchrotron techniques.</p>
+                        <div class="flex flex-wrap gap-1.5 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">HighScore Plus</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Match!</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Gwyddion</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">WSxM</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card: Thermal & Mechanical -->
+                    <div class="skill-card glass-card p-6 rounded-2xl space-y-4" data-category="characterization">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center text-orange-400">
+                                    <i class="fa-solid fa-temperature-high text-lg"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-slate-100">Thermal & Physical Props</h4>
+                            </div>
+                            <span class="text-xs font-mono text-orange-400">Bulk Testing</span>
+                        </div>
+                        <p class="text-xs text-slate-400">TGA, DSC, DTA, BET Specific Surface Area, Porosimetry, Pycnometry (Tapped Density), Karl Fischer Titration, Rheology.</p>
+                        <div class="flex flex-wrap gap-1.5 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">TGA / DSC</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">BET Porosimetry</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Rheometer</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card: Manufacturing -->
+                    <div class="skill-card glass-card p-6 rounded-2xl space-y-4" data-category="manufacturing">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                                    <i class="fa-solid fa-industry text-lg"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-slate-100">Cell Processing & Prototyping</h4>
+                            </div>
+                            <span class="text-xs font-mono text-emerald-400">Pilot Line SOP</span>
+                        </div>
+                        <p class="text-xs text-slate-400">Electrospinning, Ink production/validation, Doctor blade coating, Calendering (roll press), Pouch cell assembly (mono/multi-layer), Electrolyte filling, TMAX stacking, Glovebox maintenance.</p>
+                        <div class="flex flex-wrap gap-1.5 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-emerald-300 text-xs border border-emerald-900">Electrospinning</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Pouch Cell</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Glovebox</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Calendering</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Card: Software & Computation -->
+                    <div class="skill-card glass-card p-6 rounded-2xl space-y-4" data-category="software">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400">
+                                    <i class="fa-solid fa-code text-lg"></i>
+                                </div>
+                                <h4 class="font-heading font-bold text-slate-100">Software & Simulation</h4>
+                            </div>
+                            <span class="text-xs font-mono text-blue-400">Modeling</span>
+                        </div>
+                        <p class="text-xs text-slate-400">Scientific computing, kinetic modeling, life cycle assessment (LCA), spectral fitting, and data visualization.</p>
+                        <div class="flex flex-wrap gap-1.5 pt-2">
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-blue-300 text-xs border border-slate-800">Python</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">MATLAB / Simulink</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">COMSOL</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">OriginLab</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">OpenLCA</span>
+                            <span class="px-2.5 py-1 rounded-md bg-slate-900 text-slate-300 text-xs border border-slate-800">Spotfire</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/30">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Track Record</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Professional & Research Experience</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        A dynamic journey across world-class academic institutions, battery gigafactories, R&D incubators, and peer-reviewed journals.
+                    </p>
+                </div>
+
+                <!-- Experience Filter Tabs -->
+                <div class="flex flex-wrap justify-center gap-2" id="expFilterContainer">
+                    <button onclick="filterExperience('all')" class="exp-tab-btn active px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-emerald-500 text-slate-950 transition-all">All Roles</button>
+                    <button onclick="filterExperience('academic')" class="exp-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Academic Research</button>
+                    <button onclick="filterExperience('industry')" class="exp-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Industry & Engineering</button>
+                    <button onclick="filterExperience('editorial')" class="exp-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider bg-slate-900 border border-slate-800 text-slate-300 hover:border-emerald-500/50 transition-all">Editorial & Service</button>
+                </div>
+
+                <!-- Timeline Container -->
+                <div class="space-y-6 max-w-5xl mx-auto" id="experienceList">
+                    
+                    <!-- Exp Item 1: NYU GRA -->
+                    <div class="exp-item glass-card p-6 sm:p-8 rounded-2xl relative border-l-4 border-l-emerald-500" data-type="academic">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
+                            <div>
+                                <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider">New York University &bull; Dept of Chemistry</span>
+                                <h4 class="text-xl font-heading font-bold text-slate-100">Graduate Research Assistant</h4>
+                            </div>
+                            <div class="text-right sm:text-right">
+                                <span class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800 text-xs font-mono">July 2025 – Present</span>
+                                <p class="text-xs text-slate-400 mt-1">New York, NY, USA</p>
+                            </div>
+                        </div>
+
+                        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                            Conducting doctoral R&D on organic crystals for battery applications within Prof. Panče Naumov's Smart Materials Lab (SML). Investigating novel crystal energetics, electrochemical mechanisms, and organic crystal battery formulations.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-400">
+                            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Organic Crystal Batteries</span>
+                            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Smart Materials</span>
+                            <span class="bg-slate-900 px-2.5 py-1 rounded border border-slate-800">Electrochemistry</span>
+                        </div>
+                    </div>
+
+                    <!-- Exp Item 2: NYU TA / Adjunct -->
+                    <div class="exp-item glass-card p-6 rounded-2xl border-l-4 border-l-blue-500" data-type="academic">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-3">
+                            <div>
+                                <span class="text-xs font-mono text-blue-400 uppercase tracking-wider">NYU Arts & Science</span>
+                                <h4 class="text-lg font-heading font-bold text-slate-100">Graduate Employee Adjunct / Grader / Proctor</h4>
+                            </div>
+                            <span class="text-xs font-mono text-slate-400">Jan 2026 – May 2026 | New York</span>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Instruction, proctoring, grading, and office hours for Organic Chemistry II & Laboratory (CHEM-UA 226), General Chemistry I & II.
+                        </p>
+                    </div>
+
+                    <!-- Exp Item 3: Novocycle -->
+                    <div class="exp-item glass-card p-6 sm:p-8 rounded-2xl border-l-4 border-l-cyan-500" data-type="industry">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
+                            <div>
+                                <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">Novocycle Technologies</span>
+                                <h4 class="text-xl font-heading font-bold text-slate-100">Materials Engineer, Battery</h4>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800 text-xs font-mono">Apr 2024 – Oct 2024</span>
+                                <p class="text-xs text-slate-400 mt-1">Abu Dhabi, UAE</p>
+                            </div>
+                        </div>
+                        <ul class="list-disc list-inside text-slate-300 text-sm space-y-2 leading-relaxed">
+                            <li>R&I department leadership for battery materials and cell characterization workflows.</li>
+                            <li>Prepared Safety Data Sheets (SDS, GHS) with REACH compliance, technical data sheets, cost-effectiveness studies, and Design of Experiments (DoE).</li>
+                            <li>Engineered laboratory buildup, equipment procurement, chemical budgeting, and safety protocols.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Exp Item 4: GreenMe Honeywell -->
+                    <div class="exp-item glass-card p-6 rounded-2xl border-l-4 border-l-teal-500" data-type="industry">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-3">
+                            <div>
+                                <span class="text-xs font-mono text-teal-400 uppercase tracking-wider">GreenMe (Honeywell Subcontractor)</span>
+                                <h4 class="text-lg font-heading font-bold text-slate-100">Renewable Energy Auditor & Team Lead</h4>
+                            </div>
+                            <span class="text-xs font-mono text-slate-400">Nov 2024 – Dec 2024 | UAE</span>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Led energy audit teams for government infrastructure in Dubai and Sharjah (schools, hospitals, public buildings). Inspected HVAC & MEP systems, executing ASHRAE Level 1 audits and energy efficiency management.
+                        </p>
+                    </div>
+
+                    <!-- Exp Item 5: AVESTA Belgium -->
+                    <div class="exp-item glass-card p-6 sm:p-8 rounded-2xl border-l-4 border-l-emerald-500" data-type="industry">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
+                            <div>
+                                <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider">AVESTA</span>
+                                <h4 class="text-xl font-heading font-bold text-slate-100">Battery Engineer</h4>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800 text-xs font-mono">Nov 2023 – Feb 2024</span>
+                                <p class="text-xs text-slate-400 mt-1">Ninove, Belgium</p>
+                            </div>
+                        </div>
+                        <ul class="list-disc list-inside text-slate-300 text-sm space-y-2 leading-relaxed">
+                            <li>Pouch cell design (mono and multi-layer) and DOE for Li-ion battery chemistries (Graphite+Si anode + LFP cathode).</li>
+                            <li>Optimized electrolyte filling, wetting, vacuum sealing, and cell formation procedures in lab and pilot lines.</li>
+                            <li><strong>Key Breakthrough:</strong> Reached 4 mAh/cm² anode areal capacity at 40% porosity — exceeding company performance targets by 25%.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Exp Item 6: Saft (TotalEnergies) -->
+                    <div class="exp-item glass-card p-6 sm:p-8 rounded-2xl border-l-4 border-l-cyan-500" data-type="industry">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
+                            <div>
+                                <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider">Saft (A TotalEnergies Company)</span>
+                                <h4 class="text-xl font-heading font-bold text-slate-100">Chemical Engineer Intern</h4>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800 text-xs font-mono">Jan 2023 – July 2023</span>
+                                <p class="text-xs text-slate-400 mt-1">Bordeaux, France</p>
+                            </div>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-3">
+                            Incubator R&D department. Contributed to low-carbon Na-ion battery technology by optimizing material selection, aqueous vs solvent electrode formulation, coating, and drying processes.
+                        </p>
+                    </div>
+
+                    <!-- Exp Item 7: IPREM France -->
+                    <div class="exp-item glass-card p-6 rounded-2xl border-l-4 border-l-purple-500" data-type="academic">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-3">
+                            <div>
+                                <span class="text-xs font-mono text-purple-400 uppercase tracking-wider">IPREM (CNRS / Univ. Pau)</span>
+                                <h4 class="text-lg font-heading font-bold text-slate-100">Research Intern</h4>
+                            </div>
+                            <span class="text-xs font-mono text-slate-400">May 2022 – July 2022 | Pau, France</span>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Investigated metallic Mg anode reactivity with organic solvents for post-Li batteries with Prof. Rémi Dedryvère. Analyzed 30+ XPS samples with CasaXPS to map interface chemical environments.
+                        </p>
+                    </div>
+
+                    <!-- Exp Item 8: National Lab Astana -->
+                    <div class="exp-item glass-card p-6 sm:p-8 rounded-2xl border-l-4 border-l-teal-500" data-type="academic">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
+                            <div>
+                                <span class="text-xs font-mono text-teal-400 uppercase tracking-wider">National Laboratory Astana & Nazarbayev University</span>
+                                <h4 class="text-xl font-heading font-bold text-slate-100">Research Technician & Assistant</h4>
+                            </div>
+                            <div class="text-right">
+                                <span class="px-3 py-1 rounded-full bg-teal-950 text-teal-300 border border-teal-800 text-xs font-mono">Sept 2020 – Aug 2021</span>
+                                <p class="text-xs text-slate-400 mt-1">Astana, Kazakhstan</p>
+                            </div>
+                        </div>
+                        <ul class="list-disc list-inside text-slate-300 text-sm space-y-2 leading-relaxed">
+                            <li>Worked in Prof. Zhumabay Bakenov's Battery R&D Group on 3D all-solid-state lithium batteries.</li>
+                            <li>Synthesized novel embedded Ni3Sn2 electrospun carbon nanofiber anodes.</li>
+                            <li><strong>Results:</strong> Achieved ~2.7x higher capacity at 0.1C, ~4.5x higher capacity at 1C, and ~12x higher ionic conductivity compared to plain carbon nanofibers.</li>
+                            <li>Published as 1st Author in <strong>RSC Advances (IF 6.1)</strong> and presented at the 240th ECS Meeting.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Exp Item 9: Editorial & Reviewer -->
+                    <div class="exp-item glass-card p-6 rounded-2xl border-l-4 border-l-amber-500" data-type="editorial">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-3">
+                            <div>
+                                <span class="text-xs font-mono text-amber-400 uppercase tracking-wider">ASM International, JENMAS, WSSET, MEYJS</span>
+                                <h4 class="text-lg font-heading font-bold text-slate-100">Handbook Committee Member & Peer Reviewer</h4>
+                            </div>
+                            <span class="text-xs font-mono text-slate-400">2025 – Present | International</span>
+                        </div>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Member of ASM International Handbook Committee. Reviewer for <i>Journal of Energy, Materials & Sustainability</i> (JENMAS), <i>Future Cities and Environment</i> (WSSET), and Editorial Board Member for <i>Middle East Youth Journal of Science</i>.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="publications" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Research Impact</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Publications & Industry Reports</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Peer-reviewed journal articles, ECS conference proceedings, and global battery reports.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Paper 1 -->
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4 flex flex-col justify-between border-t-2 border-t-emerald-500">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 text-xs font-mono border border-emerald-800">1st Author &bull; Q1 Journal</span>
+                                <span class="text-xs font-mono text-slate-400">IF: 6.1 (RSC)</span>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-slate-100 leading-snug">
+                                Preparation of a Ni3Sn2 alloy-type anode embedded in carbon nanofibers by electrospinning for lithium-ion batteries
+                            </h4>
+                            <p class="text-xs font-mono text-emerald-400">RSC Advances (2022)</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Demonstrates electrospun alloy-type Ni3Sn2 nanostructures encapsulated in 3D carbon networks, achieving superior rate capabilities and ~12x conductivity enhancements for high-capacity Li-ion anodes.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-check text-emerald-400"></i> Peer-Reviewed</span>
+                            <button onclick="openPubModal('ni3sn2')" class="text-xs font-heading font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1">
+                                Abstract & Details <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Paper 2 -->
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4 flex flex-col justify-between border-t-2 border-t-cyan-500">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 text-xs font-mono border border-cyan-800">2nd Author &bull; Post-Li Batteries</span>
+                                <span class="text-xs font-mono text-slate-400">IF: 4.7</span>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-slate-100 leading-snug">
+                                Systematic Study of Reactivity of Mg with Different Organic Solvents
+                            </h4>
+                            <p class="text-xs font-mono text-cyan-400">ElectROBatt 2024 Collections</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Fundamental study of metallic Mg anode/electrolyte interface interactions evaluated via CasaXPS spectral deconvolution across multi-solvent conditions.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-check text-cyan-400"></i> Peer-Reviewed</span>
+                            <button onclick="openPubModal('mg-reactivity')" class="text-xs font-heading font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                Abstract & Details <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Paper 3 -->
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4 flex flex-col justify-between border-t-2 border-t-teal-500">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded bg-teal-950 text-teal-300 text-xs font-mono border border-teal-800">1st Author &bull; ECS Conference</span>
+                                <span class="text-xs font-mono text-slate-400">IOPscience</span>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-slate-100 leading-snug">
+                                Preparation of Ni-Sn Alloy-Type Anode by Electrospinning
+                            </h4>
+                            <p class="text-xs font-mono text-teal-400">240th ECS Meeting Abstracts (MA2021-02)</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Presented as poster and published in ECS Meeting Abstracts by IOP science (Orlando, FL / Digital).
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-award text-teal-400"></i> ECS Travel Grant</span>
+                            <button onclick="openPubModal('ecs-240')" class="text-xs font-heading font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1">
+                                Abstract & Details <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Report 4: Volta Foundation -->
+                    <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-4 flex flex-col justify-between border-t-2 border-t-blue-500">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="px-2.5 py-1 rounded bg-blue-950 text-blue-300 text-xs font-mono border border-blue-800">Volta Foundation &bull; Industry Benchmark</span>
+                                <span class="text-xs font-mono text-slate-400">2024, 2025, 2026</span>
+                            </div>
+                            <h4 class="text-lg font-heading font-bold text-slate-100 leading-snug">
+                                Annual Global Battery Reports (Volta Foundation)
+                            </h4>
+                            <p class="text-xs font-mono text-blue-400">Selected among top 100 out of 250+ global applicants</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                Co-author/contributor for the flagship industry report read by 50,000+ battery professionals worldwide. Evaluated cell chemistry trends, supply chain dynamics, and battery technology scaling.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+                            <span class="text-xs text-slate-400"><i class="fa-solid fa-earth-americas text-blue-400"></i> Global Industry Impact</span>
+                            <button onclick="openPubModal('volta-report')" class="text-xs font-heading font-bold text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                                Details <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="education" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Academic Foundation</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Education & Advanced Training</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Rigorous academic background across top European and US institutions, complemented by specialized international schools.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    
+                    <!-- Degree Education Timeline -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <h4 class="text-sm font-mono text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap"></i> Academic Degrees
+                        </h4>
+
+                        <!-- NYU PhD -->
+                        <div class="glass-card p-6 rounded-2xl relative border-l-4 border-l-emerald-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <h5 class="font-heading font-bold text-slate-100 text-lg">PhD in Chemistry</h5>
+                                <span class="text-xs font-mono text-emerald-400">2025 – 2030</span>
+                            </div>
+                            <p class="text-xs font-mono text-slate-400 mb-2">New York University (NYU GSAS) &bull; New York, NY</p>
+                            <p class="text-slate-300 text-xs leading-relaxed">
+                                Doctoral research on organic crystal energetic behavior for battery systems. NYU PhD Student Fellowship recipient.
+                            </p>
+                        </div>
+
+                        <!-- Strasbourg MSc -->
+                        <div class="glass-card p-6 rounded-2xl relative border-l-4 border-l-cyan-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <h5 class="font-heading font-bold text-slate-100 text-lg">MSc in Materials Science and Engineering</h5>
+                                <span class="text-xs font-mono text-cyan-400">2021 – 2023</span>
+                            </div>
+                            <p class="text-xs font-mono text-slate-400 mb-2">University of Strasbourg & University of Pau (UPPA) &bull; France</p>
+                            <p class="text-slate-300 text-xs leading-relaxed">
+                                Awarded French Government "Make Our Planet Great Again (MOPGA)" Master's Scholarship (2x Holder).
+                            </p>
+                        </div>
+
+                        <!-- Glasgow BSc -->
+                        <div class="glass-card p-6 rounded-2xl relative border-l-4 border-l-teal-500">
+                            <div class="flex items-center justify-between mb-2">
+                                <h5 class="font-heading font-bold text-slate-100 text-lg">BSc in Chemistry</h5>
+                                <span class="text-xs font-mono text-teal-400">2017 – 2019</span>
+                            </div>
+                            <p class="text-xs font-mono text-slate-400 mb-2">Glasgow Caledonian University (UK) & Brooklyn College CUNY (USA Exchange)</p>
+                            <p class="text-slate-300 text-xs leading-relaxed">
+                                GPA: 3.38 / 4.0. Recipient of fully funded Amanat Charitable Educational Grant for studies abroad.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Specialized Training Showcase -->
+                    <div class="lg:col-span-5 space-y-4">
+                        <h4 class="text-sm font-mono text-cyan-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-certificate"></i> Specialized Advanced Schools
+                        </h4>
+
+                        <div class="glass-card p-5 rounded-2xl space-y-3">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-bolt text-emerald-400 mt-1"></i>
+                                <div>
+                                    <h6 class="font-heading font-bold text-slate-200 text-xs">ICTP Synchrotron Light Sources School (2026)</h6>
+                                    <p class="text-xs text-slate-400">Abdus Salam International Centre for Theoretical Physics</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-atom text-cyan-400 mt-1"></i>
+                                <div>
+                                    <h6 class="font-heading font-bold text-slate-200 text-xs">European Crystallography School (ECS10 & ECS11)</h6>
+                                    <p class="text-xs text-slate-400">ECA & Stockholm University</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-cubes text-teal-400 mt-1"></i>
+                                <div>
+                                    <h6 class="font-heading font-bold text-slate-200 text-xs">MOFschool2025: Porous Materials (2025)</h6>
+                                    <p class="text-xs text-slate-400">Insubria, Milano La Statale & Granada</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-microscope text-blue-400 mt-1"></i>
+                                <div>
+                                    <h6 class="font-heading font-bold text-slate-200 text-xs">Industrial Hands-on AFM Training</h6>
+                                    <p class="text-xs text-slate-400">INFRACHIP, Bruker & Tyndall National Institute</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-leaf text-emerald-400 mt-1"></i>
+                                <div>
+                                    <h6 class="font-heading font-bold text-slate-200 text-xs">GROWTH@IRENA Renewable Energy Capstone</h6>
+                                    <p class="text-xs text-slate-400">International Renewable Energy Agency (100 selected / 1500+)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <section id="awards" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Recognition & Community</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Honors, Awards & Global Memberships</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Recognized globally for research excellence and active participation in international scientific societies.
+                    </p>
+                </div>
+
+                <!-- Awards Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-500 space-y-2">
+                        <div class="text-emerald-400 text-2xl"><i class="fa-solid fa-trophy"></i></div>
+                        <h4 class="font-heading font-bold text-slate-100">NYU PhD Fellowship</h4>
+                        <p class="text-xs text-slate-400 font-mono">New York University (2025)</p>
+                        <p class="text-xs text-slate-300">Fully funded doctoral research fellowship in chemistry at NYU GSAS.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-cyan-500 space-y-2">
+                        <div class="text-cyan-400 text-2xl"><i class="fa-solid fa-award"></i></div>
+                        <h4 class="font-heading font-bold text-slate-100">AI Drug Discovery Hackathon (3rd)</h4>
+                        <p class="text-xs text-slate-400 font-mono">Insilico Medicine (2024)</p>
+                        <p class="text-xs text-slate-300">3rd place winner (2000 AED team prize) in cheminformatics hackathon in Abu Dhabi.</p>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border-l-4 border-l-teal-500 space-y-2">
+                        <div class="text-teal-400 text-2xl"><i class="fa-solid fa-globe"></i></div>
+                        <h4 class="font-heading font-bold text-slate-100">MOPGA Master's Scholarship</h4>
+                        <p class="text-xs text-slate-400 font-mono">French Embassy & Alliance Française (2021 & 2022)</p>
+                        <p class="text-xs text-slate-300">2x recipient of "Make Our Planet Great Again" scholarship for Paris Agreement topics.</p>
+                    </div>
+
+                </div>
+
+                <!-- Professional Memberships Grid -->
+                <div class="pt-6 space-y-4">
+                    <h4 class="text-sm font-mono text-emerald-400 uppercase tracking-widest text-center">
+                        <i class="fa-solid fa-network-wired"></i> Global Scientific Affiliations
+                    </h4>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">American Chemical Society</span>
+                            <p class="text-[10px] text-slate-400 font-mono">ACS & POLY Member</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">The Electrochemical Society</span>
+                            <p class="text-[10px] text-emerald-400 font-mono">ECS Member & Awardee</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">Volta Foundation</span>
+                            <p class="text-[10px] text-slate-400 font-mono">Global Member & Contributor</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">ASM International</span>
+                            <p class="text-[10px] text-slate-400 font-mono">Handbook Committee</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">Société Chimique de France</span>
+                            <p class="text-[10px] text-slate-400 font-mono">SCF Member</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">NY Academy of Sciences</span>
+                            <p class="text-[10px] text-slate-400 font-mono">Science Alliance Member</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">SEMS Society</span>
+                            <p class="text-[10px] text-slate-400 font-mono">Founding Member</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">German Chemical Society</span>
+                            <p class="text-[10px] text-slate-400 font-mono">GDCh & JKYC Member</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">Young Researchers Alliance</span>
+                            <p class="text-[10px] text-slate-400 font-mono">Associate Member</p>
+                        </div>
+                        <div class="glass-card p-3 rounded-xl text-center hover:border-emerald-500/50 transition-all">
+                            <span class="text-xs font-heading font-bold text-slate-200">KAPNA</span>
+                            <p class="text-[10px] text-slate-400 font-mono">PhD Member North America</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/60">
+            <div class="max-w-7xl mx-auto space-y-12">
+                
+                <div class="text-center max-w-3xl mx-auto space-y-3">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-emerald-400">Get In Touch</h2>
+                    <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Let's Collaborate on Energy & Materials</h3>
+                    <p class="text-slate-400 text-sm sm:text-base">
+                        Open for research collaborations, internships, consulting, or battery technology discussions.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Contact Cards & Info -->
+                    <div class="lg:col-span-5 space-y-4">
+                        
+                        <div class="glass-card p-6 rounded-2xl space-y-4">
+                            <h4 class="font-heading font-bold text-slate-100 text-lg border-b border-slate-800 pb-3">Quick Contact Points</h4>
+                            
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-400 uppercase">Primary Email</span>
+                                    <p class="text-xs font-mono text-slate-200 select-all">ibadulla.nurbol@gmail.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                                    <i class="fa-solid fa-building-columns"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-400 uppercase">NYU Academic Email</span>
+                                    <p class="text-xs font-mono text-slate-200 select-all">ni2273@nyu.edu</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <span class="text-[10px] font-mono text-slate-400 uppercase">Phone Contact</span>
+                                    <p class="text-xs font-mono text-slate-200">+1 (917) 963-9716 / +971 50 470 5584</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-800 flex gap-3">
+                                <a href="https://www.linkedin.com/in/nurbolibadulla" target="_blank" class="flex-1 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 text-center text-slate-300 text-xs font-mono flex items-center justify-center gap-2 transition-all">
+                                    <i class="fa-brands fa-linkedin text-emerald-400"></i> LinkedIn
+                                </a>
+                                <a href="https://scholar.google.com/citations?user=Mz0RYCMAAAAJ" target="_blank" class="flex-1 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-center text-slate-300 text-xs font-mono flex items-center justify-center gap-2 transition-all">
+                                    <i class="fa-solid fa-graduation-cap text-cyan-400"></i> Scholar
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Instant Actions Card -->
+                        <div class="glass-card p-6 rounded-2xl space-y-3">
+                            <h5 class="text-xs font-mono uppercase text-emerald-400 tracking-wider">Quick Tools</h5>
+                            <button onclick="copyEmail()" class="w-full py-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-mono font-bold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-regular fa-copy"></i> Copy Primary Email
+                            </button>
+                            <button onclick="openResumeModal()" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-mono font-bold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-file-lines text-cyan-400"></i> Open Full Interactive CV Sheet
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="lg:col-span-7 glass-card p-6 sm:p-8 rounded-2xl">
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <h4 class="font-heading font-bold text-slate-100 text-xl mb-4">Send a Direct Message</h4>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Your Name</label>
+                                    <input type="text" required placeholder="Dr. Jane Doe" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-sans">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Your Email</label>
+                                    <input type="email" required placeholder="jane@institution.edu" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-sans">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Subject</label>
+                                <input type="text" required placeholder="Research Collaboration / Inquiries" class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-sans">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-mono text-slate-400 uppercase mb-1">Message</label>
+                                <textarea rows="4" required placeholder="Write your inquiry or proposal details here..." class="w-full px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-sans resize-none"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-heading font-bold text-xs uppercase tracking-wider shadow-neon-glow transition-all hover:scale-[1.01]">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800 py-8 px-4 sm:px-6 lg:px-8 bg-slate-950 text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-heading font-bold text-slate-200">Nurbol Ibadulla</span>
+                <span>&bull; PhD Researcher @ NYU</span>
+            </div>
+            <p>&copy; 2026 Nurbol Ibadulla. Powered by Electrochemistry & Materials Science.</p>
+            <div class="flex gap-4">
+                <a href="#hero" class="hover:text-emerald-400 transition-colors">Back to Top <i class="fa-solid fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Resume Modal -->
+    <div id="resumeModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden">
+            <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-file-pdf text-emerald-400 text-xl"></i>
+                    <div>
+                        <h3 class="font-heading font-bold text-slate-100">Nurbol Ibadulla - Curriculum Vitae</h3>
+                        <p class="text-xs font-mono text-slate-400">PhD Candidate in Chemistry | New York University</p>
+                    </div>
+                </div>
+                <button onclick="closeResumeModal()" class="text-slate-400 hover:text-slate-100 text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto space-y-6 text-slate-300 text-xs font-sans leading-relaxed">
+                <div class="p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-xl space-y-1">
+                    <h4 class="font-heading font-bold text-emerald-300 text-sm">Professional Summary</h4>
+                    <p>
+                        Seeking internships/co-ops & part-time jobs. 3.5 years' R&D experience in US, France, Belgium, UAE & Kazakhstan. Educated in US, UK & France. Skilled in materials synthesis, electrochemistry, battery cell engineering, and advanced analytical characterization. Driver's License (B). Fluent in English & Russian.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-heading font-bold text-slate-100 text-sm border-b border-slate-800 pb-1">Core Competencies</h4>
+                    <p><strong>Electrochemical Testing:</strong> CV, CC/CC-CV cycling (formation/aging), EIS, bulk/surface resistivity, Galvanostatic cycling (BioLogic, Arbin, Gamry, Autolab, Neware).</p>
+                    <p><strong>Physical & Chemical Analysis:</strong> XPS (CasaXPS), XRD (Match!, HighScore Plus), AFM, TEM, SEM-EDS, Raman, FTIR, TGA/DSC, ICP-AES, BET Surface Area, Rheometer.</p>
+                    <p><strong>Battery Manufacturing:</strong> Electrospinning, Glovebox, Pouch Cell assembly/disassembly, Slitting, Doctor-blade coating, Calendering, Electrolyte filling, Cleanroom SOPs.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-heading font-bold text-slate-100 text-sm border-b border-slate-800 pb-1">Key Publications</h4>
+                    <p>1. <i>Preparation of a Ni3Sn2 alloy-type anode embedded in carbon nanofibers by electrospinning for lithium-ion batteries</i> — RSC Advances (1st Author, IF: 6.1)</p>
+                    <p>2. <i>Systematic Study of Reactivity of Mg with Different Organic Solvents</i> — ElectROBatt 2024 Collections (2nd Author, IF: 4.7)</p>
+                    <p>3. <i>Volta Foundation Annual Battery Reports (2024, 2025, 2026)</i> — Contributor</p>
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-800 bg-slate-950 flex items-center justify-between">
+                <span class="text-xs font-mono text-slate-500">Document Status: Verified & Active</span>
+                <div class="flex gap-2">
+                    <button onclick="copyEmail()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-200 text-xs font-semibold">
+                        Copy Contact Info
+                    </button>
+                    <button onclick="closeResumeModal()" class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold">
+                        Close Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Publication Abstract Modal -->
+    <div id="pubModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl p-6 space-y-4 shadow-2xl relative">
+            <button onclick="closePubModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="pubModalContent" class="space-y-3">
+                <!-- Dynamically filled by JS -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex justify-end">
+                <button onclick="closePubModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold">
+                    Close Window
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-slate-950 font-heading font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toastMsg">Action completed successfully!</span>
+    </div>
+
+    <script>
+        /* Interactive Lattice Particle Canvas Background */
+        const canvas = document.getElementById('latticeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let particles = [];
+        const particleCount = 45;
+        const connectionDistance = 140;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.radius = Math.random() * 2 + 1.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#10b981';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#10b981';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < connectionDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(6, 182, 212, ${1 - dist / connectionDistance})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        animateCanvas();
+
+        
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Skill filtering logic
+        function filterSkills(category) {
+            const cards = document.querySelectorAll('.skill-card');
+            const btns = document.querySelectorAll('#skillFilterContainer button');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-emerald-500', 'text-slate-950', 'active');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+            });
+
+            event.target.classList.remove('bg-slate-900', 'text-slate-300');
+            event.target.classList.add('bg-emerald-500', 'text-slate-950', 'active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Experience filtering logic
+        function filterExperience(type) {
+            const items = document.querySelectorAll('.exp-item');
+            const btns = document.querySelectorAll('#expFilterContainer button');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-emerald-500', 'text-slate-950', 'active');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+            });
+
+            event.target.classList.remove('bg-slate-900', 'text-slate-300');
+            event.target.classList.add('bg-emerald-500', 'text-slate-950', 'active');
+
+            items.forEach(item => {
+                if (type === 'all' || item.getAttribute('data-type') === type) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Copy email function
+        function copyEmail() {
+            const email = "ibadulla.nurbol@gmail.com";
+            const textarea = document.createElement('textarea');
+            textarea.value = email;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            showToast("Primary email copied to clipboard!");
+        }
+
+        // Toast trigger
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Resume Modal Handlers
+        function openResumeModal() {
+            document.getElementById('resumeModal').classList.remove('hidden');
+            document.getElementById('resumeModal').classList.add('flex');
+        }
+
+        function closeResumeModal() {
+            document.getElementById('resumeModal').classList.add('hidden');
+            document.getElementById('resumeModal').classList.remove('flex');
+        }
+
+        // Publication Details Modal
+        const pubData = {
+            'ni3sn2': {
+                title: 'Preparation of a Ni3Sn2 alloy-type anode embedded in carbon nanofibers by electrospinning for lithium-ion batteries',
+                journal: 'RSC Advances (2022) | Impact Factor: 6.1',
+                abstract: 'In this work, Ni3Sn2 alloy-type anode embedded in carbon nanofibers (CNFs) was successfully synthesized via electrospinning followed by heat treatment. The encapsulated Ni3Sn2 nanoparticles provided high specific capacity while the conductive carbon nanofiber matrix buffered volumetric expansion during lithium insertion/extraction. The composite anode demonstrated ~2.7x higher capacity at 0.1C and ~12x higher ionic conductivity compared to plain CNFs.',
+                authors: 'Nurbol Ibadulla, et al.',
+                doi: '10.1039/D2RA05734D'
+            },
+            'mg-reactivity': {
+                title: 'Systematic Study of Reactivity of Mg with Different Organic Solvents',
+                journal: 'ElectROBatt 2024 Collections | Impact Factor: 4.7',
+                abstract: 'Investigated the interface reactivity of metallic Mg anodes when exposed to diverse organic electrolytes. Utilizing high-resolution XPS coupled with CasaXPS quantitative deconvolution, surface species evolution and passivation layer formations were systematically mapped across scratching and soaking procedures.',
+                authors: 'Co-authored with IPREM Research Group',
+                doi: 'ElectROBatt-2024-Mg'
+            },
+            'ecs-240': {
+                title: 'Preparation of Ni-Sn Alloy-Type Anode by Electrospinning',
+                journal: '240th ECS Meeting Abstracts (MA2021-02)',
+                abstract: 'Presented at the 240th Electrochemical Society Meeting (Orlando, FL). Highlights the synthesis parameters, phase pure alloy formation, and morphology characterization of electrospun Ni-Sn nanostructures for energy storage applications.',
+                authors: 'Nurbol Ibadulla, Zhumabay Bakenov',
+                doi: '10.1149/MA2021-023309mtgabs'
+            },
+            'volta-report': {
+                title: 'Volta Foundation Annual Battery Reports (2024, 2025, 2026)',
+                journal: 'Volta Foundation Global Report',
+                abstract: 'Crowdsourced from world-leading battery scientists and industry executives, the Volta Foundation Battery Report summarizes critical breakthroughs in battery R&D, gigafactory manufacturing, mineral supply chains, and policy landscapes across global markets.',
+                authors: 'Volta Foundation Contributor Team (Nurbol Ibadulla credited on p. 514 / p. 765)',
+                doi: 'voltafoundation.org/battery-report'
+            }
+        };
+
+        function openPubModal(pubId) {
+            const data = pubData[pubId];
+            if (!data) return;
+
+            const content = document.getElementById('pubModalContent');
+            content.innerHTML = `
+                <span class="px-2.5 py-1 rounded bg-emerald-950 text-emerald-300 text-xs font-mono border border-emerald-800">${data.journal}</span>
+                <h4 class="text-xl font-heading font-bold text-slate-100">${data.title}</h4>
+                <p class="text-xs font-mono text-slate-400">Authors: ${data.authors}</p>
+                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs text-slate-300 leading-relaxed space-y-2">
+                    <span class="font-bold text-emerald-400 font-mono block">Abstract & Insights:</span>
+                    <p>${data.abstract}</p>
+                </div>
+                <div class="text-xs font-mono text-cyan-400">Reference DOI / Tag: ${data.doi}</div>
+            `;
+
+            document.getElementById('pubModal').classList.remove('hidden');
+            document.getElementById('pubModal').classList.add('flex');
+        }
+
+        function closePubModal() {
+            document.getElementById('pubModal').classList.add('hidden');
+            document.getElementById('pubModal').classList.remove('flex');
+        }
+
+        // Contact Form handler
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast("Message sent! Nurbol will get back to you shortly.");
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
