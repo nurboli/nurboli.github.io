@@ -1051,13 +1051,6 @@
         </section>
 
         <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-800/60 bg-slate-950/60">
-            <form action="https://api.web3forms.com/submit" method="POST">
-              <input type="hidden" name="access_key" value="43532e9e-ba79-46d0-b758-97ac3e6e5aa4">
-              <input type="text" name="name" required>
-              <input type="email" name="email" required>
-              <textarea name="message" required></textarea>
-              <button type="submit">Submit</button>
-            </form>
             <div class="max-w-7xl mx-auto space-y-12">
                 
                 <div class="text-center max-w-3xl mx-auto space-y-3">
@@ -1131,8 +1124,12 @@
 
                     <!-- Contact Form -->
                     <div class="lg:col-span-7 glass-card p-6 sm:p-8 rounded-2xl">
-                        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            
                             <h4 class="font-heading font-bold text-slate-100 text-xl mb-4">Send a Direct Message</h4>
+
+                            <input type="hidden" name="access_key" value="43532e9e-ba79-46d0-b758-97ac3e6e5aa4">
+
                             
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
