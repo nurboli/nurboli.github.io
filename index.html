@@ -182,6 +182,9 @@
                 <button onclick="openResumeModal()" class="w-full text-center py-2 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 text-xs font-bold uppercase">
                     View CV / Resume
                 </button>
+                <a href="Nurbol_Ibadulla_CV.pdf" download class="w-full text-center py-2 rounded-lg bg-slate-800 text-emerald-300 border border-slate-700 text-xs font-bold uppercase">
+                    <i class="fa-solid fa-download"></i> Download CV (PDF)
+                </a>
                 <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3treVqjM0nG_hWWnclLlThw32iExHTl9gEJnMn2TP7b35c83XGbpixuwpeRQF1K0JI-VdGdwnK" target="_blank" rel="noopener" class="w-full text-center py-2 rounded-lg bg-slate-800 text-cyan-300 border border-slate-700 text-xs font-bold uppercase">
                     <i class="fa-regular fa-calendar-check"></i> Schedule a Call
                 </a>
@@ -223,6 +226,11 @@
                         <a href="#experience" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-heading font-bold text-sm tracking-wide shadow-neon-glow transition-all hover:scale-105 flex items-center gap-2">
                             <span>Explore R&D Journey</span>
                             <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+
+                        <a href="Nurbol_Ibadulla_CV.pdf" download class="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-emerald-500/40 font-heading font-semibold text-sm tracking-wide transition-all hover:border-emerald-400 flex items-center gap-2">
+                            <i class="fa-solid fa-download text-emerald-400"></i>
+                            <span>Download CV (PDF)</span>
                         </a>
 
                         <a href="#publications" class="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-heading font-semibold text-sm tracking-wide transition-all hover:border-emerald-500/50 flex items-center gap-2">
@@ -1274,6 +1282,9 @@
                             <button onclick="openResumeModal()" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-mono font-bold flex items-center justify-center gap-2 transition-all">
                                 <i class="fa-solid fa-file-lines text-cyan-400"></i> Open Full Interactive CV Sheet
                             </button>
+                            <a href="Nurbol_Ibadulla_CV.pdf" download class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-mono font-bold flex items-center justify-center gap-2 transition-all">
+                                <i class="fa-solid fa-download text-emerald-400"></i> Download CV (PDF)
+                            </a>
                         </div>
 
                     </div>
@@ -1353,7 +1364,12 @@
                 </button>
             </div>
 
-            <div class="p-6 overflow-y-auto space-y-6 text-slate-300 text-xs font-sans leading-relaxed">
+            <div class="flex gap-2 px-5 pt-3 bg-slate-950 border-b border-slate-800">
+                <button id="cvTabSummary" onclick="showCvTab('summary')" class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 border-b-2 border-emerald-400">Quick View</button>
+                <button id="cvTabPdf" onclick="showCvTab('pdf')" class="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-slate-400 border-b-2 border-transparent hover:text-emerald-400">Full CV (PDF)</button>
+            </div>
+
+            <div id="cvSummary" class="p-6 overflow-y-auto space-y-6 text-slate-300 text-xs font-sans leading-relaxed">
                 <div class="p-4 bg-emerald-950/40 border border-emerald-500/30 rounded-xl space-y-1">
                     <h4 class="font-heading font-bold text-emerald-300 text-sm">Professional Summary</h4>
                     <p>Seeking internships/co-ops &amp; part-time jobs. 3.5 years' experience in the US, France, Belgium, UAE &amp; Kazakhstan. Educated in the US, UK &amp; France. Skilled in materials, chemistry &amp; batteries. Fluent English &amp; Russian, intermediate French, elementary Arabic. Driving licence (B).</p>
@@ -1381,12 +1397,22 @@
                     <p>NYU PhD Student Fellowship (2025) &bull; Insilico Medicine AI Drug Discovery Hackathon, 3rd place (2024) &bull; MOPGA Master's Scholarship (2021 &amp; 2022) &bull; ECS Travel Grant (2021) &bull; Amanat educational grant (2016) &bull; GROWTH@IRENA (2025).</p>
                 </div>
             </div>
-<div class="p-4 border-t border-slate-800 bg-slate-950 flex items-center justify-between">
+<div id="cvPdf" class="hidden flex-1 min-h-0 bg-slate-950">
+                <object data="Nurbol_Ibadulla_CV.pdf#view=FitH" type="application/pdf" class="w-full h-[62vh]">
+                    <div class="p-8 text-center text-slate-300 text-sm space-y-3">
+                        <p>Your browser can't display the PDF inline.</p>
+                        <a href="Nurbol_Ibadulla_CV.pdf" target="_blank" rel="noopener" class="inline-block px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold">Open CV (PDF)</a>
+                    </div>
+                </object>
+            </div>
+
+            <div class="p-4 border-t border-slate-800 bg-slate-950 flex flex-wrap gap-2 items-center justify-between">
                 <span class="text-xs font-mono text-slate-500">Document Status: Verified & Active</span>
                 <div class="flex gap-2">
                     <button onclick="copyEmail()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-200 text-xs font-semibold">
                         Copy Contact Info
                     </button>
+                    <a href="Nurbol_Ibadulla_CV.pdf" download class="px-4 py-2 rounded-xl bg-cyan-500 text-slate-950 text-xs font-bold flex items-center gap-2"><i class="fa-solid fa-download"></i> Download PDF</a>
                     <button onclick="closeResumeModal()" class="px-4 py-2 rounded-xl bg-emerald-500 text-slate-950 text-xs font-bold">
                         Close Preview
                     </button>
@@ -1579,7 +1605,16 @@
         // Resume Modal Handlers
         function openResumeModal() {
             document.getElementById('resumeModal').classList.remove('hidden');
+            showCvTab('summary');
             document.getElementById('resumeModal').classList.add('flex');
+        }
+
+        function showCvTab(tab) {
+            const pdf = tab === 'pdf';
+            document.getElementById('cvSummary').classList.toggle('hidden', pdf);
+            document.getElementById('cvPdf').classList.toggle('hidden', !pdf);
+            document.getElementById('cvTabSummary').className = 'px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider border-b-2 ' + (pdf ? 'text-slate-400 border-transparent hover:text-emerald-400' : 'text-emerald-400 border-emerald-400');
+            document.getElementById('cvTabPdf').className = 'px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider border-b-2 ' + (pdf ? 'text-emerald-400 border-emerald-400' : 'text-slate-400 border-transparent hover:text-emerald-400');
         }
 
         function closeResumeModal() {
