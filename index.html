@@ -46,6 +46,14 @@
         }
     </script>
     
+    <script>
+        (function () {
+            var m = 'dark';
+            try { m = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+            var r = m === 'system' ? (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : m;
+            document.documentElement.setAttribute('data-theme', r === 'light' ? 'light' : 'dark');
+        })();
+    </script>
     <style>
         /* Custom scrollbar */
         ::-webkit-scrollbar {
@@ -121,6 +129,65 @@
         .status-dot {
             box-shadow: 0 0 10px #10b981;
         }
+
+        /* ---------- Theme switcher ---------- */
+        :root { color-scheme: dark; }
+        html[data-theme="light"] { color-scheme: light; }
+        .theme-switch { display:inline-flex; border:1px solid rgba(148,163,184,.35); border-radius:12px; overflow:hidden; }
+        .theme-btn { padding:.45rem .65rem; font-size:.75rem; line-height:1; color:#94a3b8; background:transparent; transition:all .2s; }
+        .theme-btn:hover { color:#10b981; }
+        .theme-btn.active { background:#10b981; color:#052e22; }
+        html[data-theme="light"] .theme-btn { color:#475569; }
+        html[data-theme="light"] .theme-btn.active { color:#052e22; }
+        html[data-theme="light"] .theme-switch { border-color:#cbd5e1; }
+
+        /* ---------- Light theme overrides ---------- */
+        html[data-theme="light"] body { background:#f1f5f9; color:#0f172a; }
+        html[data-theme="light"] ::-webkit-scrollbar-track { background:#e2e8f0; }
+        html[data-theme="light"] ::-webkit-scrollbar-thumb { background:#94a3b8; }
+        html[data-theme="light"] .glass-card { background:rgba(255,255,255,.85); border-color:rgba(15,23,42,.12); }
+        html[data-theme="light"] .glass-card:hover { border-color:rgba(5,150,105,.5); box-shadow:0 12px 30px -10px rgba(5,150,105,.2); }
+        html[data-theme="light"] .text-gradient { background:linear-gradient(135deg,#0f172a 0%,#059669 55%,#0891b2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        html[data-theme="light"] #latticeCanvas { opacity:.25; }
+        html[data-theme="light"] [class*="bg-slate-950"] { background-color:rgba(226,232,240,.6); }
+        html[data-theme="light"] [class*="bg-slate-900"] { background-color:#f1f5f9; }
+        html[data-theme="light"] [class*="bg-slate-800"] { background-color:#e2e8f0; }
+        html[data-theme="light"] [class*="bg-slate-700"] { background-color:#cbd5e1; }
+        html[data-theme="light"] header[class*="bg-slate-950"] { background-color:rgba(255,255,255,.9); }
+        html[data-theme="light"] #mobileMenu { background-color:#ffffff; }
+        html[data-theme="light"] #resumeModal, html[data-theme="light"] #pubModal { background-color:rgba(15,23,42,.55); }
+        html[data-theme="light"] #resumeModal > div, html[data-theme="light"] #pubModal > div { background-color:#ffffff; }
+        html[data-theme="light"] footer[class*="bg-slate-950"] { background-color:#e2e8f0; }
+        html[data-theme="light"] [class*="border-slate-800"], html[data-theme="light"] [class*="border-slate-700"] { border-color:#cbd5e1; }
+        html[data-theme="light"] [class*="text-slate-100"] { color:#0f172a; }
+        html[data-theme="light"] [class*="text-slate-200"] { color:#1e293b; }
+        html[data-theme="light"] [class*="text-slate-300"] { color:#334155; }
+        html[data-theme="light"] [class*="text-slate-400"] { color:#475569; }
+        html[data-theme="light"] [class*="text-slate-500"] { color:#64748b; }
+        html[data-theme="light"] [class*="text-slate-600"] { color:#94a3b8; }
+        html[data-theme="light"] [class*="text-slate-950"] { color:#020617; }
+        html[data-theme="light"] :is([class*="text-emerald-200"],[class*="text-emerald-300"],[class*="text-emerald-400"],[class*="text-emerald-500"]) { color:#047857; }
+        html[data-theme="light"] [class*="bg-emerald-950"] { background-color:#ecfdf5; }
+        html[data-theme="light"] :is([class*="border-emerald-800"],[class*="border-emerald-900"]) { border-color:#6ee7b7; }
+        html[data-theme="light"] :is([class*="text-cyan-200"],[class*="text-cyan-300"],[class*="text-cyan-400"],[class*="text-cyan-500"]) { color:#0e7490; }
+        html[data-theme="light"] [class*="bg-cyan-950"] { background-color:#ecfeff; }
+        html[data-theme="light"] :is([class*="border-cyan-800"],[class*="border-cyan-900"]) { border-color:#67e8f9; }
+        html[data-theme="light"] :is([class*="text-teal-200"],[class*="text-teal-300"],[class*="text-teal-400"],[class*="text-teal-500"]) { color:#0f766e; }
+        html[data-theme="light"] [class*="bg-teal-950"] { background-color:#f0fdfa; }
+        html[data-theme="light"] :is([class*="border-teal-800"],[class*="border-teal-900"]) { border-color:#5eead4; }
+        html[data-theme="light"] :is([class*="text-blue-200"],[class*="text-blue-300"],[class*="text-blue-400"],[class*="text-blue-500"]) { color:#1d4ed8; }
+        html[data-theme="light"] [class*="bg-blue-950"] { background-color:#eff6ff; }
+        html[data-theme="light"] :is([class*="border-blue-800"],[class*="border-blue-900"]) { border-color:#93c5fd; }
+        html[data-theme="light"] :is([class*="text-purple-200"],[class*="text-purple-300"],[class*="text-purple-400"],[class*="text-purple-500"]) { color:#7e22ce; }
+        html[data-theme="light"] [class*="bg-purple-950"] { background-color:#faf5ff; }
+        html[data-theme="light"] :is([class*="border-purple-800"],[class*="border-purple-900"]) { border-color:#d8b4fe; }
+        html[data-theme="light"] :is([class*="text-amber-200"],[class*="text-amber-300"],[class*="text-amber-400"],[class*="text-amber-500"]) { color:#b45309; }
+        html[data-theme="light"] [class*="bg-amber-950"] { background-color:#fffbeb; }
+        html[data-theme="light"] :is([class*="border-amber-800"],[class*="border-amber-900"]) { border-color:#fcd34d; }
+        html[data-theme="light"] :is([class*="text-orange-200"],[class*="text-orange-300"],[class*="text-orange-400"],[class*="text-orange-500"]) { color:#c2410c; }
+        html[data-theme="light"] [class*="bg-orange-950"] { background-color:#fff7ed; }
+        html[data-theme="light"] :is([class*="border-orange-800"],[class*="border-orange-900"]) { border-color:#fdba74; }
+        html[data-theme="light"] [class*="bg-emerald-500"][class*="text-slate-950"], html[data-theme="light"] [class*="from-emerald-500"], html[data-theme="light"] [class*="from-cyan-500"] { color:#020617; }
     </style>
 </head>
 <body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-900 min-h-screen relative overflow-x-hidden">
@@ -154,6 +221,11 @@
 
             <!-- CTA & Actions -->
             <div class="hidden lg:flex items-center space-x-3">
+                <div class="theme-switch " role="group" aria-label="Theme">
+                    <button type="button" class="theme-btn" data-mode="dark" onclick="setTheme('dark')" title="Dark theme" aria-label="Dark theme"><i class="fa-solid fa-moon"></i></button>
+                    <button type="button" class="theme-btn" data-mode="light" onclick="setTheme('light')" title="Light theme" aria-label="Light theme"><i class="fa-solid fa-sun"></i></button>
+                    <button type="button" class="theme-btn" data-mode="system" onclick="setTheme('system')" title="System default" aria-label="System default theme"><i class="fa-solid fa-desktop"></i></button>
+                </div>
                 <button onclick="openResumeModal()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
                     <i class="fa-solid fa-file-pdf text-emerald-400"></i> <span>CV</span>
                 </button>
@@ -181,6 +253,11 @@
             <a href="#education" class="block hover:text-emerald-400 transition-colors">Education</a>
             <a href="#awards" class="block hover:text-emerald-400 transition-colors">Awards & Network</a>
             <div class="pt-3 border-t border-slate-800 flex flex-col gap-2">
+                <div class="theme-switch self-start" role="group" aria-label="Theme">
+                    <button type="button" class="theme-btn" data-mode="dark" onclick="setTheme('dark')" title="Dark theme" aria-label="Dark theme"><i class="fa-solid fa-moon"></i></button>
+                    <button type="button" class="theme-btn" data-mode="light" onclick="setTheme('light')" title="Light theme" aria-label="Light theme"><i class="fa-solid fa-sun"></i></button>
+                    <button type="button" class="theme-btn" data-mode="system" onclick="setTheme('system')" title="System default" aria-label="System default theme"><i class="fa-solid fa-desktop"></i></button>
+                </div>
                 <button onclick="openResumeModal()" class="w-full text-center py-2 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 text-xs font-bold uppercase">
                     View CV / Resume
                 </button>
@@ -630,7 +707,7 @@
                                 <p class="text-xs text-slate-400 mt-1">Pau, France</p>
                             </div>
                         </div>
-                        <ul class="list-disc list-inside text-slate-300 text-sm space-y-2 leading-relaxed"><li>Studied metallic Mg as anode for post Li-ion batteries in <a href="https://iprem.univ-pau.fr/en/institute/permanent-staff/cv_en_-dedryver-en.html" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">Prof. Rémi Dedryvère&#39;s</a> <a href="https://destiny-phd.eu/newpage2a6c367c" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">project</a> with a PhD student.</li><li>Studied anode/electrolyte reactivity by XPS and treated data with CasaXPS; quantified by attributing environments based on calculations. 30+ samples prepared &amp; characterized.</li><li>Tested Mg-metal/solvent reactivity versus soaking duration and scratching methods; found that scratching methods evolve different species in different solvents.</li><li>Drew conclusions, discussed next steps and presented a <a href="https://docs.google.com/document/d/1itfAhRgP_qpkZd64PBrbB7ecG28kLR-OrA-F7nH6Rd0/edit?usp=sharing&amp;usp=embed_facebook" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">final report</a>.</li></ul>
+                        <ul class="list-disc list-inside text-slate-300 text-sm space-y-2 leading-relaxed"><li>Studied metallic Mg as anode for post Li-ion batteries in <a href="https://iprem.univ-pau.fr/en/institute/permanent-staff/cv_en_-dedryver-en.html" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">Prof. Rémi Dedryvère&#39;s</a> <a href="https://destiny-phd.eu/newpage2a6c367c" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">project</a> with a PhD student.</li><li>Studied anode/electrolyte reactivity by XPS and treated data with CasaXPS; quantified by attributing environments based on calculations. 30+ samples prepared &amp; characterized.</li><li>Tested Mg-metal/solvent reactivity versus soaking duration and scratching methods; found that scratching methods evolve different species in different solvents.</li><li>Drew conclusions and discussed next steps.</li></ul>
                     </div>
                     <div class="exp-item glass-card p-6 rounded-2xl border-l-4 border-l-teal-500">
                         <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 border-b border-slate-800 pb-4 mb-4">
@@ -1160,7 +1237,7 @@
                                 <span class="text-xs font-mono text-teal-400 whitespace-nowrap">Sept 2021 – July 2022</span>
                             </div>
                             <p class="text-xs font-mono text-slate-400 mb-2">University of Pau and the Adour Region (UPPA) &bull; France</p>
-                            <p class="text-slate-300 text-xs leading-relaxed">Includes a 2-month research internship (IPREM) with <a href="https://docs.google.com/document/d/1itfAhRgP_qpkZd64PBrbB7ecG28kLR-OrA-F7nH6Rd0/edit?usp=sharing&amp;usp=embed_facebook" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">final report</a>; coursework <a href="https://youtu.be/rdBUZl2MFLQ?si=ugAH-0UovE0RcP-0&amp;t=690" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">featured on the university YouTube channel</a>. MOPGA scholarship holder (2021 &amp; 2022).</p>
+                            <p class="text-slate-300 text-xs leading-relaxed">Includes a 2-month research internship (IPREM); coursework <a href="https://youtu.be/rdBUZl2MFLQ?si=ugAH-0UovE0RcP-0&amp;t=690" target="_blank" rel="noopener" class="text-emerald-300 hover:text-emerald-200 underline decoration-dotted underline-offset-2">featured on the university YouTube channel</a>. MOPGA scholarship holder (2021 &amp; 2022).</p>
                         </div>
                         <div class="glass-card p-6 rounded-2xl relative border-l-4 border-l-purple-500">
                             <div class="flex items-center justify-between mb-2 gap-2">
@@ -1704,6 +1781,28 @@
                 }
             });
         }
+
+        // Theme handling: dark (default), light, or follow the system
+        const themeMQ = window.matchMedia('(prefers-color-scheme: light)');
+        function applyTheme(mode) {
+            const resolved = mode === 'system' ? (themeMQ.matches ? 'light' : 'dark') : mode;
+            document.documentElement.setAttribute('data-theme', resolved === 'light' ? 'light' : 'dark');
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+        }
+        function setTheme(mode) {
+            try { localStorage.setItem('theme', mode); } catch (e) {}
+            applyTheme(mode);
+        }
+        (function initTheme() {
+            let mode = 'dark';
+            try { mode = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+            applyTheme(mode);
+            themeMQ.addEventListener('change', () => {
+                let m = 'dark';
+                try { m = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+                if (m === 'system') applyTheme('system');
+            });
+        })();
 
         // Copy email function
         function copyEmail() {
