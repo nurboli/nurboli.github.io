@@ -72,11 +72,10 @@
 
         /* Glassmorphism gradient border */
         .glass-card {
-            background: rgba(17, 24, 39, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(17, 24, 39, 0.9);
+            /* no backdrop blur by default: it is very expensive while scrolling */
             border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform .3s cubic-bezier(0.4,0,0.2,1), border-color .3s, box-shadow .3s;
         }
 
         .glass-card:hover {
@@ -133,7 +132,7 @@
         /* ---------- Theme switcher ---------- */
         :root { color-scheme: dark; }
         html[data-theme="light"] { color-scheme: light; }
-        .theme-switch { display:inline-flex; border:1px solid rgba(148,163,184,.35); border-radius:12px; overflow:hidden; }
+        .theme-switch { flex-shrink:0; display:inline-flex; border:1px solid rgba(148,163,184,.35); border-radius:12px; overflow:hidden; }
         .theme-btn { padding:.45rem .65rem; font-size:.75rem; line-height:1; color:#94a3b8; background:transparent; transition:all .2s; }
         .theme-btn:hover { color:#10b981; }
         .theme-btn.active { background:#10b981; color:#052e22; }
@@ -188,13 +187,27 @@
         html[data-theme="light"] [class*="bg-orange-950"] { background-color:#fff7ed; }
         html[data-theme="light"] :is([class*="border-orange-800"],[class*="border-orange-900"]) { border-color:#fdba74; }
         html[data-theme="light"] [class*="bg-emerald-500"][class*="text-slate-950"], html[data-theme="light"] [class*="from-emerald-500"], html[data-theme="light"] [class*="from-cyan-500"] { color:#020617; }
+
+        /* ---------- Performance ---------- */
+        @media (min-width: 1024px) and (hover: hover) {
+            .glass-card { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        }
+        @media (max-width: 1023px), (hover: none) {
+            header, #resumeModal, #pubModal { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+            .glass-card:hover { transform: none; box-shadow: none; }
+            .ring-glow::after { animation: none; filter: blur(4px); }
+        }
+        main > section:not(#hero) { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+        }
     </style>
 </head>
 <body class="bg-darkbg text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-slate-900 min-h-screen relative overflow-x-hidden">
 
     <canvas id="latticeCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
 
-    <header class="fixed top-0 left-0 w-full z-50 glass-card bg-slate-950/80 border-b border-slate-800/80 backdrop-blur-md">
+    <header class="fixed top-0 left-0 w-full z-50 glass-card bg-slate-950/80 border-b border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             
             <!-- Logo / Monogram -->
@@ -209,7 +222,7 @@
             </a>
 
             <!-- Desktop Navigation -->
-            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+            <nav class="hidden xl:flex items-center space-x-4 text-[13px] font-medium text-slate-300">
                 <a href="#about" class="hover:text-emerald-400 transition-colors py-1">About</a>
                 <a href="#skills" class="hover:text-emerald-400 transition-colors py-1">Skills & Arsenal</a>
                 <a href="#experience" class="hover:text-emerald-400 transition-colors py-1">Experience</a>
@@ -220,31 +233,31 @@
             </nav>
 
             <!-- CTA & Actions -->
-            <div class="hidden lg:flex items-center space-x-3">
+            <div class="hidden xl:flex items-center space-x-2">
                 <div class="theme-switch " role="group" aria-label="Theme">
                     <button type="button" class="theme-btn" data-mode="dark" onclick="setTheme('dark')" title="Dark theme" aria-label="Dark theme"><i class="fa-solid fa-moon"></i></button>
                     <button type="button" class="theme-btn" data-mode="light" onclick="setTheme('light')" title="Light theme" aria-label="Light theme"><i class="fa-solid fa-sun"></i></button>
                     <button type="button" class="theme-btn" data-mode="system" onclick="setTheme('system')" title="System default" aria-label="System default theme"><i class="fa-solid fa-desktop"></i></button>
                 </div>
-                <button onclick="openResumeModal()" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
+                <button onclick="openResumeModal()" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
                     <i class="fa-solid fa-file-pdf text-emerald-400"></i> <span>CV</span>
                 </button>
-                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3treVqjM0nG_hWWnclLlThw32iExHTl9gEJnMn2TP7b35c83XGbpixuwpeRQF1K0JI-VdGdwnK" target="_blank" rel="noopener" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3treVqjM0nG_hWWnclLlThw32iExHTl9gEJnMn2TP7b35c83XGbpixuwpeRQF1K0JI-VdGdwnK" target="_blank" rel="noopener" class="px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 transition-all">
                     <i class="fa-regular fa-calendar-check text-cyan-400"></i> <span>Book a Call</span>
                 </a>
-                <a href="#contact" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-heading font-bold text-xs uppercase tracking-wider shadow-neon-glow transition-all hover:scale-105">
+                <a href="#contact" class="px-3 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 whitespace-nowrap hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-heading font-bold text-xs uppercase tracking-wider shadow-neon-glow transition-all hover:scale-105">
                     Contact Me
                 </a>
             </div>
 
             <!-- Mobile Hamburger Button -->
-            <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-emerald-400 text-2xl focus:outline-none p-2">
+            <button id="mobileMenuBtn" class="xl:hidden text-slate-300 hover:text-emerald-400 text-2xl focus:outline-none p-2">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
 
         <!-- Mobile Navigation Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-6 py-4 space-y-3 font-medium text-slate-300">
+        <div id="mobileMenu" class="hidden xl:hidden bg-slate-900/95 border-b border-slate-800 px-6 py-4 space-y-3 font-medium text-slate-300">
             <a href="#about" class="block hover:text-emerald-400 transition-colors">About</a>
             <a href="#skills" class="block hover:text-emerald-400 transition-colors">Skills & Arsenal</a>
             <a href="#experience" class="block hover:text-emerald-400 transition-colors">Experience</a>
@@ -297,7 +310,7 @@
                     </p>
 
                     <p class="text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
-                        Engineering next-generation electrochemical energy storage systems. 3.5+ years of international research and industry experience across the US, France, Belgium, UAE, and Kazakhstan. Specializing in organic crystal batteries, Li-ion / Na-ion / Mg-ion electrode formulation, electrospinning, and advanced physicochemical characterization.
+                        Engineering next-generation electrochemical energy storage systems. 3.5+ years of international research and industry experience across the US, France, Belgium, UAE, and Kazakhstan. Specializing in organic plastic crystals, Li-ion / Na-ion / Mg-ion batteries, and advanced physicochemical materials characterization.
                     </p>
 
                     <!-- CTAs -->
@@ -611,6 +624,11 @@
                     <h3 class="text-3xl sm:text-4xl font-heading font-bold text-slate-100">Professional & Research Experience</h3>
                     <p class="text-slate-400 text-sm sm:text-base">A dynamic journey across world-class academic institutions, battery R&D labs and pilot lines, industry reports, and peer-review service.</p>
                 </div>
+                <div class="flex flex-wrap justify-center gap-2" id="expTabs" role="tablist">
+                    <button role="tab" data-exp="academic" onclick="showExpTab('academic')" class="exp-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all">Academic Research & Teaching (9)</button>
+                    <button role="tab" data-exp="industry" onclick="showExpTab('industry')" class="exp-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all">Industry & Engineering (5)</button>
+                    <button role="tab" data-exp="editorial" onclick="showExpTab('editorial')" class="exp-tab-btn px-4 py-2 rounded-xl text-xs font-mono font-bold uppercase tracking-wider transition-all">Editorial, Peer Review & Service (8)</button>
+                </div>
                 <div class="space-y-12 max-w-5xl mx-auto" id="experienceList">
                     <div class="space-y-4" id="exp-academic">
                         <div class="flex items-center gap-3 pb-2 border-b border-slate-800">
@@ -737,7 +755,7 @@
                     </div>
                         </div>
                     </div>
-                    <div class="space-y-4" id="exp-industry">
+                    <div class="space-y-4 hidden" id="exp-industry">
                         <div class="flex items-center gap-3 pb-2 border-b border-slate-800">
                             <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400"><i class="fa-solid fa-industry"></i></div>
                             <div><h4 class="font-heading font-bold text-lg text-slate-100">Industry & Engineering</h4><p class="text-xs text-slate-400">Battery R&D, cell engineering and energy auditing across Europe and the UAE.</p></div>
@@ -810,7 +828,7 @@
                     </div>
                         </div>
                     </div>
-                    <div class="space-y-4" id="exp-editorial">
+                    <div class="space-y-4 hidden" id="exp-editorial">
                         <div class="flex items-center gap-3 pb-2 border-b border-slate-800">
                             <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400"><i class="fa-solid fa-pen-nib"></i></div>
                             <div><h4 class="font-heading font-bold text-lg text-slate-100">Editorial, Peer Review & Service</h4><p class="text-xs text-slate-400">Peer review, editorial boards, committees, industry-report contributions and judging.</p></div>
@@ -1579,7 +1597,7 @@
 
     
     <!-- Resume Modal -->
-    <div id="resumeModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div id="resumeModal" class="fixed inset-0 z-50 bg-slate-950/80 hidden items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden">
             <div class="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950">
                 <div class="flex items-center gap-3">
@@ -1652,7 +1670,7 @@
     </div>
 
     <!-- Publication Abstract Modal -->
-    <div id="pubModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div id="pubModal" class="fixed inset-0 z-50 bg-slate-950/80 hidden items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-2xl rounded-2xl p-6 space-y-4 shadow-2xl relative">
             <button onclick="closePubModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-100 text-xl">
                 <i class="fa-solid fa-xmark"></i>
@@ -1677,80 +1695,72 @@
     </div>
 
     <script>
-        /* Interactive Lattice Particle Canvas Background */
+        /* Lightweight lattice background: skipped on phones/touch and for reduced motion */
         const canvas = document.getElementById('latticeCanvas');
-        const ctx = canvas.getContext('2d');
+        const skipCanvas = window.matchMedia('(max-width: 767px), (pointer: coarse), (prefers-reduced-motion: reduce)').matches;
+        if (skipCanvas) {
+            canvas.style.display = 'none';
+        } else {
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            const connectionDistance = 140;
+            const frameInterval = 1000 / 40;
+            let last = 0;
 
-        let width, height;
-        let particles = [];
-        const particleCount = 45;
-        const connectionDistance = 140;
-
-        function resizeCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.6;
-                this.vy = (Math.random() - 0.5) * 0.6;
-                this.radius = Math.random() * 2 + 1.5;
+            function resizeCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                const count = Math.min(40, Math.round(width / 35));
+                while (particles.length < count) particles.push(new Particle());
+                particles.length = count;
             }
 
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * window.innerWidth;
+                    this.y = Math.random() * window.innerHeight;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 1.5 + 1.5;
+                }
+                update() {
+                    this.x += this.vx; this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
             }
 
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            function animateCanvas(t) {
+                requestAnimationFrame(animateCanvas);
+                if (document.hidden || t - last < frameInterval) return;
+                last = t;
+                ctx.clearRect(0, 0, width, height);
                 ctx.fillStyle = '#10b981';
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = '#10b981';
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateCanvas() {
-            ctx.clearRect(0, 0, width, height);
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < connectionDistance) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(6, 182, 212, ${1 - dist / connectionDistance})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.stroke();
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    p.update();
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = p.x - particles[j].x, dy = p.y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < connectionDistance) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(6, 182, 212, ${1 - dist / connectionDistance})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
                     }
                 }
             }
             requestAnimationFrame(animateCanvas);
         }
-
-        animateCanvas();
 
         
         // Mobile menu toggle
@@ -1781,6 +1791,24 @@
                 }
             });
         }
+
+        // Experience tabs
+        function showExpTab(key) {
+            ['academic', 'industry', 'editorial'].forEach(k => {
+                document.getElementById('exp-' + k).classList.toggle('hidden', k !== key);
+            });
+            document.querySelectorAll('#expTabs button').forEach(btn => {
+                const on = btn.dataset.exp === key;
+                btn.setAttribute('aria-selected', on);
+                btn.classList.toggle('bg-emerald-500', on);
+                btn.classList.toggle('text-slate-950', on);
+                btn.classList.toggle('bg-slate-900', !on);
+                btn.classList.toggle('border', !on);
+                btn.classList.toggle('border-slate-800', !on);
+                btn.classList.toggle('text-slate-300', !on);
+            });
+        }
+        showExpTab('academic');
 
         // Theme handling: dark (default), light, or follow the system
         const themeMQ = window.matchMedia('(prefers-color-scheme: light)');
