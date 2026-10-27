@@ -1798,8 +1798,32 @@
         </div>
     </div>
 
+    <!-- Site assistant (chat widget) -->
+    <button id="chatBtn" type="button" aria-label="Open chat assistant" aria-expanded="false" class="fixed bottom-6 right-6 z-[55] h-14 px-4 rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-heading font-bold text-sm shadow-neon-glow flex items-center gap-2 hover:scale-105 transition-transform">
+        <i class="fa-solid fa-comments text-lg"></i><span class="hidden sm:inline">Ask me anything</span>
+    </button>
+
+    <div id="chatPanel" role="dialog" aria-label="Chat assistant" class="hidden fixed z-[55] inset-x-3 bottom-24 sm:inset-x-auto sm:right-6 sm:w-[24rem] h-[70vh] max-h-[34rem] flex-col rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden">
+        <div class="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+                <div class="w-9 h-9 rounded-full bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-heading font-extrabold text-sm shrink-0">NI</div>
+                <div class="min-w-0">
+                    <p class="font-heading font-bold text-sm text-slate-100 leading-tight truncate">Nurbol's Assistant</p>
+                    <p class="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online 24/7</p>
+                </div>
+            </div>
+            <button id="chatClose" type="button" aria-label="Close chat" class="text-slate-400 hover:text-slate-100 text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div id="chatMsgs" class="flex-1 overflow-y-auto p-4 space-y-3 text-sm" aria-live="polite"></div>
+        <div id="chatChips" class="px-3 pb-2 flex flex-wrap gap-1.5"></div>
+        <form id="chatForm" class="p-3 border-t border-slate-800 flex items-center gap-2" autocomplete="off">
+            <input id="chatInput" type="text" maxlength="300" placeholder="Ask about research, experience, publications..." class="flex-1 min-w-0 px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 focus:border-emerald-500 focus:outline-none text-slate-200 text-xs font-sans">
+            <button type="submit" aria-label="Send" class="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center shrink-0"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+    </div>
+
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-emerald-500 text-slate-950 font-heading font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div id="toast" class="fixed bottom-24 right-6 z-[60] bg-emerald-500 text-slate-950 font-heading font-bold text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
         <i class="fa-solid fa-circle-check"></i>
         <span id="toastMsg">Action completed successfully!</span>
     </div>
@@ -2130,6 +2154,170 @@
                 btn.textContent = originalText;
             }
         }
+    </script>
+    <script>
+        /* ---------- Site assistant: answers from this site's own content, 24/7; can forward a message to Nurbol ---------- */
+        (function () {
+            const LINK = 'underline decoration-dotted underline-offset-2 text-emerald-300 hover:text-emerald-200';
+            const a = (u, t) => '<a href="' + u + '" target="_blank" rel="noopener" class="' + LINK + '">' + t + '</a>';
+            const go = (id, t) => '<a href="#' + id + '" class="' + LINK + '">' + t + '</a>';
+            const CALL = 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3treVqjM0nG_hWWnclLlThw32iExHTl9gEJnMn2TP7b35c83XGbpixuwpeRQF1K0JI-VdGdwnK';
+            const HANDOFF = '<button type="button" data-act="handoff" class="mt-2 px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 text-xs font-bold">Send a message to Nurbol</button>';
+
+            const KB = [
+                { k: ['who is', 'about nurbol', 'introduce', 'yourself', 'who are you', 'background', 'summary'],
+                  a: 'Nurbol Ibadulla is a PhD student in Chemistry at New York University (Smart Materials Lab, Prof. Panče Naumov), based in Abu Dhabi. He is a materials scientist and battery R&amp;D specialist with 3.5+ years of research and industry experience across the US, France, Belgium, the UAE and Kazakhstan. See the ' + go('about', 'About section') + '.' },
+                { k: ['research', 'thesis', 'phd work', 'doctoral', 'focus', 'plastic crystal', 'organic crystal', 'working on'],
+                  a: 'His doctoral research is on organic (plastic) crystals for batteries and wider electrochemical energy storage, studying structure&ndash;property relationships and molecular mechanisms. Earlier work covers Li-ion, Na-ion and Mg-ion batteries, electrospun anodes and electrode formulation.' },
+                { k: ['current', 'right now', 'currently', 'present job', 'what does he do', 'position', 'role now'],
+                  a: 'Currently (as of late 2026): Graduate Research Assistant at NYU Abu Dhabi (Smart Materials Lab, since July 2025), Student Assistant and Graduate Note-taker at NYUAD, Visiting Researcher at Khalifa University, and contributor to the Volta Foundation Battery Report 2026. Details in ' + go('experience', 'Experience') + '.' },
+                { k: ['experience', 'work history', 'career', 'jobs', 'worked', 'employer', 'industry experience'],
+                  a: 'Industry: Novocycle (Materials Engineer, Battery), AVESTA (Battery Engineer, Belgium), TaiSan (Electrochemical Engineer), Saft/TotalEnergies (Chemical Engineer Intern, France) and GreenMe (energy auditor, team lead). Academic: NYU/NYUAD, Khalifa University, IPREM (Pau) and National Laboratory Astana/Nazarbayev University. Browse the tabs in ' + go('experience', 'Experience') + '.' },
+                { k: ['avesta', 'belgium', 'pouch', 'porosity'],
+                  a: 'At AVESTA (Ninove, Belgium; Nov 2023&ndash;Feb 2024) Nurbol worked on pouch cell design, DOE, electrolyte filling and formation with graphite(+Si)/LFP cells, and reached 4 mAh/cm&sup2; anode areal capacity at 40% porosity, exceeding the target by 25%.' },
+                { k: ['saft', 'totalenergies', 'sodium', 'na-ion', 'bordeaux'],
+                  a: 'At Saft (a TotalEnergies company, Bordeaux; Jan&ndash;Jul 2023) he contributed to Na-ion battery technology in the Incubator R&amp;D department, comparing electrode formulations and aqueous vs solvent drying, and made a Na-ion prototype.' },
+                { k: ['novocycle', 'sds', 'reach', 'materials engineer'],
+                  a: 'At Novocycle (UAE; Apr&ndash;Oct 2024) he worked in R&amp;I on battery materials and cells: SDS/GHS with REACH, technical data sheets, market analysis, cost-effectiveness study, DoE, plus laboratory buildup and procurement.' },
+                { k: ['greenme', 'honeywell', 'audit', 'ashrae', 'energy audit'],
+                  a: 'At GreenMe (Honeywell subcontractor, Nov&ndash;Dec 2024) he led a team of 2 technicians on ASHRAE Level 1 energy audits of government buildings such as schools, hospitals and mosques in Dubai and Sharjah.' },
+                { k: ['taisan', 'quasi solid', 'solid-state electrolyte'],
+                  a: 'At TaiSan (remote, July 2023) he did R&amp;D on a Na-ion quasi solid-state electrolyte battery: electrode formulation and processing, cell design, failure analysis and scale-up.' },
+                { k: ['iprem', 'magnesium', 'mg anode', 'mg metal', 'pau'],
+                  a: 'At IPREM (CNRS/University of Pau; May&ndash;Jul 2022) he studied metallic Mg anodes for post Li-ion batteries by XPS, preparing and characterizing 30+ samples. This led to a 2nd-author paper (see Publications).' },
+                { k: ['astana', 'kazakhstan', 'nazarbayev', 'ni3sn2', 'electrospinning', 'electrospun'],
+                  a: 'At National Laboratory Astana and Nazarbayev University (2020&ndash;2021) he made Ni3Sn2 anodes embedded in electrospun carbon nanofibers: ~2.7x higher capacity at 0.1C, ~4.5x at 1C and ~12x higher ionic conductivity than plain carbon nanofibers, published in RSC Advances.' },
+                { k: ['skill', 'good at', 'expertise', 'techniques', 'characteri', 'instrument', 'equipment'],
+                  a: 'Core skills: electrochemical testing (CV, cycling, EIS; BioLogic, Arbin, Gamry, Autolab, Neware), characterization (XPS, XRD, AFM, SEM-EDS, TEM, Raman, FTIR, TGA/DSC, BET), and cell prototyping (electrospinning, coating, calendering, pouch cells, glovebox). Software: Python, Spotfire, OriginLab, OpenLCA. See ' + go('skills', 'Skills') + '.' },
+                { k: ['python', 'software', 'programming', 'coding', 'data analysis'],
+                  a: 'Software: Python, Spotfire, OriginLab and OpenLCA, plus chemometrics and cheminformatics (3rd place at the Insilico Medicine AI-Driven Drug Discovery Hackathon).' },
+                { k: ['publication', 'paper', 'article', 'published', 'journal', 'citation', 'doi'],
+                  a: 'Publications: ' + a('https://pubs.rsc.org/en/Content/ArticleLanding/2022/RA/D2RA05734D', 'Ni3Sn2 anode in carbon nanofibers (RSC Advances, 2022, 1st author)') + '; ' + a('https://chemistry-europe.onlinelibrary.wiley.com/doi/10.1002/batt.202500177', 'Reactivity of Mg with organic solvents (2nd author)') + '; an ' + a('https://iopscience.iop.org/article/10.1149/MA2021-023309mtgabs', 'ECS conference abstract') + '; plus Volta Foundation Battery Reports 2024 &amp; 2025 and SEMS Voices Edition 02. More in ' + go('publications', 'Publications') + '.' },
+                { k: ['education', 'degree', 'university', 'studied', 'study', 'school', 'master', 'bachelor', 'bsc', 'msc', 'gpa'],
+                  a: 'Education: PhD in Chemistry at NYU (2025&ndash;), Master&rsquo;s in Materials Science and Engineering (University of Pau and University of Strasbourg, France) and a BSc in Chemistry from Glasgow Caledonian University, with an exchange semester at Brooklyn College (CUNY). He has also completed many specialist schools. See ' + go('education', 'Education') + '.' },
+                { k: ['award', 'honor', 'honour', 'scholarship', 'fellowship', 'prize', 'grant', 'won', 'hackathon'],
+                  a: 'Highlights: NYU PhD Student Fellowship in Chemistry, 3rd place at the Insilico Medicine AI-Driven Drug Discovery Hackathon (2024), two-time MOPGA Master&rsquo;s Scholarship, ECS Travel Grant, GROWTH@IRENA selection (100 of 1500+) and the Amanat educational grant. See ' + go('awards', 'Honors &amp; Awards') + '.' },
+                { k: ['talk', 'presentation', 'speak', 'speech', 'panel', 'poster', 'conference', 'present'],
+                  a: 'Recent talks include the TII AMRC&ndash;NYUAD collaboration workshop, the Hub71 Talent Matchmaking event, an NYUAD PhD student panel, exhibiting at GITEX Impact (Dubai), an R&amp;D showcase at AVESTA and an ECS poster. See ' + go('presentations', 'Presentations') + '.' },
+                { k: ['teach', 'adjunct', 'grader', 'proctor', 'lecture', 'organic chemistry', 'tutor'],
+                  a: 'In spring 2026 Nurbol was a Graduate Employee Adjunct, grader and proctor at NYU for Organic Chemistry II &amp; Laboratory and General Chemistry I &amp; II.' },
+                { k: ['review', 'editor', 'editorial', 'jenmas', 'wsset', 'meyjs', 'asm', 'handbook', 'lisef', 'judge'],
+                  a: 'Service: peer reviewer for JENMAS and the WSSET/Cerebration journals, editorial board member of the Middle East Youth Journal of Science, member of the ASM International Handbook Committee, and a judge at the Long Island Science &amp; Engineering Fair 2026.' },
+                { k: ['member', 'society', 'societies', 'association', 'network', 'volta', 'ecs', 'sems', 'kapna'],
+                  a: 'Nurbol belongs to 28 networks, including The Electrochemical Society, Volta Foundation, ACS, SEMS (founding member), KAPNA, the German Chemical Society and the New York Academy of Sciences. Full list in ' + go('awards', 'Awards &amp; Memberships') + '.' },
+                { k: ['language', 'speak english', 'russian', 'kazakh', 'french', 'arabic', 'turkish', 'multilingual'],
+                  a: 'Languages: Kazakh (native), English and Russian (full professional), French (intermediate), Turkish (limited working) and Arabic (elementary).' },
+                { k: ['where', 'location', 'based', 'live', 'city', 'country', 'abu dhabi'],
+                  a: 'Nurbol is based in Abu Dhabi, UAE. He has worked in the US, France, Belgium, the UK, the UAE and Kazakhstan.' },
+                { k: ['hire', 'hiring', 'job', 'internship', 'co-op', 'coop', 'available', 'opportunit', 'recruit', 'open to', 'collaborat', 'consult', 'work with'],
+                  a: 'Nurbol is seeking internships/co-ops and part-time roles, and is open to research collaborations, consulting and battery technology discussions. You can ' + a(CALL, 'book a call') + ' or leave him a message here.' + '<br>' + HANDOFF },
+                { k: ['contact', 'email', 'e-mail', 'reach', 'phone', 'number', 'whatsapp', 'talk to nurbol', 'speak to nurbol', 'message nurbol', 'get in touch', 'linkedin'],
+                  a: 'The quickest ways: use the form in ' + go('contact', 'Get in Touch') + ', ' + a(CALL, 'book a call') + ', or leave a message right here and I will deliver it to Nurbol. For privacy, phone numbers are not listed. LinkedIn: ' + a('https://www.linkedin.com/in/nurbolibadulla/', 'nurbolibadulla') + '.<br>' + HANDOFF },
+                { k: ['call', 'meeting', 'schedule', 'book', 'appointment', 'zoom', 'calendar'],
+                  a: 'You can ' + a(CALL, 'book a call with Nurbol here') + ' (opens his scheduling page).' },
+                { k: ['cv', 'resume', 'curriculum'],
+                  a: 'You can open or download his CV (PDF) from the CV button at the top of the page, or ' + a('Nurbol_Ibadulla_CV.pdf', 'download it directly') + '.' },
+                { k: ['orcid', 'scholar', 'researchgate', 'scopus', 'web of science', 'profile', 'website link'],
+                  a: 'Research profiles: ' + a('https://orcid.org/0000-0002-2717-8912', 'ORCID') + ', ' + a('https://scholar.google.com/citations?user=Mz0RYCMAAAAJ', 'Google Scholar') + ', ' + a('https://www.researchgate.net/profile/Nurbol-Ibadulla', 'ResearchGate') + ', ' + a('https://www.scopus.com/authid/detail.uri?authorId=57703314000', 'Scopus') + ' and ' + a('https://www.webofscience.com/wos/author/record/ADY-1262-2022', 'Web of Science') + '. More in ' + go('featured', 'Featured') + '.' },
+                { k: ['featured', 'mention', 'press', 'news', 'interview', 'media'],
+                  a: 'Mentions of Nurbol (conference programs, the ASM Handbook credits, LISEF 2026 program, LinkedIn posts and more) are collected in ' + go('featured', 'Featured &amp; Mentioned') + '.' },
+                { k: ['training', 'course', 'workshop', 'certificate', 'certification', 'synchrotron', 'crystallograph', 'mof', 'afm training'],
+                  a: 'He has attended schools and trainings including the Abu Dhabi School on Computational Materials Discovery, ECS10/ECS11 (crystallography), MOFschool2025, the ICTP synchrotron school, SOLARIS, EU4MOFs, AFM training in Cork and the NYU teaching certificate. See ' + go('education', 'Education &amp; Training') + '.' }
+            ];
+
+            const CHIPS = [['Research focus', 'What is his research about?'], ['Experience', 'Tell me about his experience'], ['Publications', 'What has he published?'], ['Skills', 'What are his skills?'], ['Book a call', 'How can I book a call?'], ['Message Nurbol', '__handoff__']];
+            const $ = (id) => document.getElementById(id);
+            const btn = $('chatBtn'), panel = $('chatPanel'), msgs = $('chatMsgs'), chips = $('chatChips'), form = $('chatForm'), input = $('chatInput');
+            let started = false, lastUnanswered = '';
+            const log = [];
+
+            function bubble(content, who, asHtml) {
+                const row = document.createElement('div');
+                row.className = 'flex ' + (who === 'user' ? 'justify-end' : 'justify-start');
+                const b = document.createElement('div');
+                b.className = 'max-w-[88%] px-3 py-2 rounded-2xl text-xs leading-relaxed ' + (who === 'user' ? 'bg-emerald-500 text-slate-950 rounded-br-sm' : 'bg-slate-800 text-slate-200 rounded-bl-sm');
+                if (asHtml) b.innerHTML = content; else b.textContent = content;
+                row.appendChild(b); msgs.appendChild(row);
+                msgs.scrollTop = msgs.scrollHeight;
+                return b;
+            }
+            function say(html) { log.push('Assistant: ' + html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()); return bubble(html, 'bot', true); }
+
+            function renderChips() {
+                chips.innerHTML = '';
+                CHIPS.forEach(([label, q]) => {
+                    const c = document.createElement('button');
+                    c.type = 'button'; c.textContent = label;
+                    c.className = 'px-2.5 py-1 rounded-full text-[11px] font-mono border border-slate-700 text-slate-300 hover:border-emerald-500 hover:text-emerald-400 transition-colors';
+                    c.addEventListener('click', () => (q === '__handoff__' ? showHandoff() : ask(q)));
+                    chips.appendChild(c);
+                });
+            }
+
+            function normalize(s) { return ' ' + s.toLowerCase().replace(/[^a-z0-9+\-&\s]/g, ' ').replace(/\s+/g, ' ').trim() + ' '; }
+            function reply(q) {
+                const n = normalize(q);
+                if (/^ (hi|hello|hey|hola|salam|yo|good (morning|afternoon|evening))\b/.test(n)) return 'Hello! I can tell you about Nurbol&rsquo;s research, experience, publications, skills, education and more. What would you like to know?';
+                if (/\b(thanks|thank you|thx|great|awesome|cool)\b/.test(n) && n.split(' ').length < 6) return 'You&rsquo;re welcome! Anything else you&rsquo;d like to know?';
+                let best = null, bestScore = 0;
+                KB.forEach((e) => { let s = 0; e.k.forEach((k) => { if (n.indexOf(k) !== -1) s += k.length > 5 ? 3 : 2; }); if (s > bestScore) { bestScore = s; best = e; } });
+                if (best && bestScore >= 2) return best.a;
+                lastUnanswered = q;
+                return 'I am not sure I have that on this site. If you would like a personal answer, I can pass your question to Nurbol and he can reply by email.<br>' + HANDOFF;
+            }
+            function ask(q) {
+                q = q.trim(); if (!q) return;
+                bubble(q, 'user', false); log.push('Visitor: ' + q);
+                const t = bubble('<span class="opacity-60">typing&hellip;</span>', 'bot', true);
+                setTimeout(() => { t.parentElement.remove(); say(reply(q)); }, 450);
+            }
+
+            function showHandoff() {
+                if ($('chatHandoff')) { $('chatHandoff').scrollIntoView({ block: 'nearest' }); return; }
+                const wrap = document.createElement('div');
+                wrap.id = 'chatHandoff'; wrap.className = 'rounded-2xl border border-emerald-500/40 bg-slate-950 p-3 space-y-2';
+                wrap.innerHTML = '<p class="text-xs text-slate-200 font-bold">Message Nurbol</p>' +
+                    '<input id="hoName" type="text" maxlength="80" placeholder="Your name" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:border-emerald-500 focus:outline-none">' +
+                    '<input id="hoEmail" type="email" maxlength="120" placeholder="Your email (so he can reply)" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:border-emerald-500 focus:outline-none">' +
+                    '<textarea id="hoMsg" rows="3" maxlength="1500" placeholder="Your question or message" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 focus:border-emerald-500 focus:outline-none resize-none"></textarea>' +
+                    '<p id="hoErr" class="text-[11px] text-amber-400 hidden"></p>' +
+                    '<div class="flex gap-2"><button id="hoSend" type="button" class="flex-1 py-2 rounded-lg bg-emerald-500 text-slate-950 text-xs font-bold">Send to Nurbol</button><button id="hoCancel" type="button" class="px-3 py-2 rounded-lg border border-slate-700 text-xs text-slate-300">Cancel</button></div>';
+                msgs.appendChild(wrap);
+                $('hoMsg').value = lastUnanswered || '';
+                msgs.scrollTop = msgs.scrollHeight; $('hoName').focus();
+                $('hoCancel').onclick = () => wrap.remove();
+                $('hoSend').onclick = async () => {
+                    const name = $('hoName').value.trim(), email = $('hoEmail').value.trim(), msg = $('hoMsg').value.trim(), err = $('hoErr');
+                    err.classList.add('hidden');
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = 'Please enter a valid email so Nurbol can reply.'; err.classList.remove('hidden'); return; }
+                    if (msg.length < 5) { err.textContent = 'Please write your message.'; err.classList.remove('hidden'); return; }
+                    const send = $('hoSend'); send.disabled = true; send.textContent = 'Sending...';
+                    try {
+                        const key = document.querySelector('#contactForm input[name="access_key"]').value;
+                        const res = await fetch('https://api.web3forms.com/submit', {
+                            method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                            body: JSON.stringify({ access_key: key, from_name: 'Portfolio Assistant', subject: 'Website assistant: message for Nurbol', name: name || 'Website visitor', email: email, message: msg + '\n\n--- Chat transcript ---\n' + log.slice(-12).join('\n'), botcheck: '' })
+                        });
+                        const out = await res.json();
+                        if (res.ok && out.success) { wrap.remove(); say('Thank you! Your message has been delivered to Nurbol. He will reply to <b>' + email.replace(/</g, '&lt;') + '</b>.'); lastUnanswered = ''; }
+                        else { throw new Error(out.message || 'failed'); }
+                    } catch (e) { send.disabled = false; send.textContent = 'Send to Nurbol'; err.textContent = 'Could not send right now. Please try again or use the contact form on the page.'; err.classList.remove('hidden'); }
+                };
+            }
+
+            function openChat() {
+                panel.classList.remove('hidden'); panel.classList.add('flex'); btn.setAttribute('aria-expanded', 'true');
+                if (!started) { started = true; say('Hi! I&rsquo;m Nurbol&rsquo;s assistant, available 24/7. Ask me about his research, experience, publications, skills or how to work with him. If you need a personal answer, I can send your message straight to him.'); renderChips(); }
+                setTimeout(() => input.focus(), 50);
+            }
+            function closeChat() { panel.classList.add('hidden'); panel.classList.remove('flex'); btn.setAttribute('aria-expanded', 'false'); }
+
+            btn.addEventListener('click', () => (panel.classList.contains('hidden') ? openChat() : closeChat()));
+            $('chatClose').addEventListener('click', closeChat);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.classList.contains('hidden')) closeChat(); });
+            form.addEventListener('submit', (e) => { e.preventDefault(); const v = input.value; input.value = ''; ask(v); });
+            msgs.addEventListener('click', (e) => { const t = e.target.closest('[data-act="handoff"]'); if (t) showHandoff(); if (e.target.closest('a[href^="#"]')) closeChat(); });
+        })();
     </script>
 </body>
 </html>
